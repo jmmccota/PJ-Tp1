@@ -1,0 +1,9 @@
+andar: 50,20 ate 1850,20 de 150 em 150
+Pular: 2050,20 ate 2500,20 de 150 em 150
+correr: 50,200 ate 1850,201 de 150 em 150
+ataque especial1: 50,350 ate 2000,350 de 150 em 150
+ataque basico: 50,550 ate 1550,550 de 150 em 150
+Apresentacao inicial: 50,750 ate 2300,750 de 150 em 150
+Gatoutsu: 50,950 ate 1550,950 de 150 em 150
+Morrendo: 50,1150 ate 1850,1150 de 150 em 150
+Passando de Fase: 50,1350 ate 1100,1350 de 150 em 150

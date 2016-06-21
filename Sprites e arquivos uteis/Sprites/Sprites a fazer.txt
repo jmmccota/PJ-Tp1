@@ -1,0 +1,19 @@
+ataque especial 3
+ataque especial 4
+hit animation
+death animation
+
+enemy motions
+enemy basic atacks
+
+bosses
+Viktor
+doctor
+general
+1º grunt
+madman
+
+introdução
+final bom
+final ruim
+transições

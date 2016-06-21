@@ -1,0 +1,13 @@
+﻿TP3
+	* barra de vida
+	
+	
+até dia 04/06
+OK	* tudo via canvas
+OK	* Sem alerts, pelo amor de deus!!!!!!
+	* Ações de ataque - falta melhorar o movimento
+OK	* vida estilo Contra 
+OK	* interface com numero de vidas
+	* pontuação - falta contar direito
+	* Pelo menos mais dois tipos de inimigos e um boss final - falta desenho do inimigo e boss
+	* teste em navegadores diferentes para garantir o processamento

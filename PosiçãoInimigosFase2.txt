@@ -1,0 +1,21 @@
+ataque shuriken: 50,4 ate 1400,4 de 150 em 150
+Inimigo andando: 50,175 ate 1550,175 de 150 em 150
+chefe correndo: 50,350 ate 1550,350 de 150 em 150
+Chefe Atacando: 50,510 ate 1400,510 de 150 em 150
+Chefe ataque especial: 50,510 ate 1400,510 de 150 em 150
+Agua do mar1: 10,970 510,1250 
+Agua do mar2: 550,970 1050,1250
+piso por do sol: 10,750 510,932 
+grade de protecao: 550,750  1050,932
+background por do sol: 1100,750 1766,1250 
+piso noturno: 10,1300 510,1482
+background noturno: 1100,1300
+Bala: 600,1300 640,1315
+Bala especial: 700,1300 755,1330
+Cura: 800,1300 825,1325
+shuriken: 900,1300 935,1307
+
+OBS: o chefe usa no ataque especial as mesmas sprites que
+no ataque normal, o que diferencia sao as balas.
+ficar trocando entre a agua do mar 1 e 2 para passar a 
+impressao de movimento.
