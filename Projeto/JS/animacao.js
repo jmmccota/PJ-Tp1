@@ -33,11 +33,11 @@ var aumentaImg = 1;
 //contruÃ§Ã£o das imagens de animaÃ§ao
 var animacaoCef = 1;
 var animacaoPers = 1;
-var imgCefet, imgLogo, imgLogo1, imgPers, imgNevoa, imgBack, imgON, imgGameOver, imgFase2, imgOFF, imgFase, imgEnter, imgBS, imgBSchefao, imgA, imgS, imgD, imgESC, imgW, imgPersonagem, imgBackF1, imfBackF2;
+var imgCefet, imgLogo, imgLogo1, imgPers, imgNevoa, imgBack, imgON, imgGameOver, imgFase2, imgOFF, imgFase, imgEnter, imgBS, imgBSchefao, imgA, imgS, imgD, imgESC, imgW, imgPersonagem, imgBackF1, imgBackF2, imgBackF3, imgPoste;
 var desenhoCef, desenhoLogo, desenhoLogo1, desenhoPers, desenhoBack,
         desenhoChao, desenhoChaoChefao, desenhoChuva, desenhoArvore, desenhoAnimeFase, desenhoAnimeFimFase1, desenhoAnimeFase2, desenhoBackChefao,
         desenhoTetoChefao1, desenhoNevoa, desenhoBack2, desenhoChao2, desenhoAgua2, desenhoGrade2, desenhoBackChefao2, desenhoChaoChefao2, desenhoAguaChefao2,
-        desenhoGameOver;
+        desenhoGameOver, desenhoPoste, desenhoPoste2;
 
 //elementos do personagem da animacao
 var desPerson = 1;
@@ -664,6 +664,7 @@ function drawAnimacao3() {
     desenhoBackChefao2.desenhaEffectX();
     desenhoChaoChefao2.desenhaEffectX();
     desenhoGrade2.desenhaEffectX();
+    desenhoPoste2.desenha();
     desenhoNevoa.desenhaEffectX();
     desenhoAnimeFase2.desenhaPers();
     desenhoAnimeFase2.proximoQuadro(150);
@@ -683,6 +684,7 @@ function drawBackFaseChefao2() {
         desenhoBackChefao2.desenhaEffectX();
         desenhoChaoChefao2.desenhaEffectX();
         desenhoGrade2.desenhaEffectX();
+        desenhoPoste2.desenha();
         desenhoNevoa.desenhaEffectX();
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
@@ -723,6 +725,7 @@ function drawBackFaseChefao2() {
         desenhoBackChefao2.desenhaEffectX();
         desenhoChaoChefao2.desenhaEffectX();
         desenhoGrade2.desenhaEffectX();
+        desenhoPoste2.desenha();
         desenhoNevoa.desenhaEffectX();
         desenhoAnimeFimFase1.desenhaPers();
         desenhoAnimeFimFase1.proximoQuadro(150);
@@ -735,6 +738,7 @@ function drawBackFaseChefao2() {
             desenhoChaoChefao2.limpa();
             desenhoGrade2.limpa();
             desenhoNevoa.limpa();
+            desenhoPoste2.limpa();
             pts = 0;
         }
         desenhoGameOver.desenha();
@@ -745,9 +749,9 @@ function drawBackFase2() {
     if (estadoAtual == estados.jogar) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         desenhoBack2.desenhaEffectX();
-        desenhoAgua2.desenhaEffectX();
         desenhoChao2.desenhaEffectX();
         desenhoGrade2.desenhaEffectX();
+        desenhoPoste.desenha();
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
                 arrayTiros[i].desenha();
@@ -784,9 +788,9 @@ function drawBackFase2() {
         }
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         desenhoBack2.desenhaEffectX();
-        desenhoAgua2.desenhaEffectX();
         desenhoChao2.desenhaEffectX();
         desenhoGrade2.desenhaEffectX();
+        desenhoPoste.desenha();
         desenhoAnimeFimFase1.desenhaPers();
         desenhoAnimeFimFase1.proximoQuadro(150);
         tempo++;
@@ -795,9 +799,9 @@ function drawBackFase2() {
             sairFase = 1;
             sairMenu = 0;
             desenhoBack2.limpa();
-            desenhoAgua2.limpa();
             desenhoChao2.limpa();
             desenhoGrade2.limpa();
+            desenhoPoste.limpa();
             pts = 0;
         }
         desenhoGameOver.desenha();
@@ -1369,6 +1373,12 @@ function draw() {
     imgBackF2 = new Image();
     imgBackF2.src = "images/fundoFase2.png";
 
+    imgBackF3 = new Image();
+    imgBackF3.src = "images/fundoFase3.png";
+    
+    imgPoste = new Image();
+    imgPoste.src = "images/poste.png";
+    
     desenhoChuva = new Desenho(imgFase, 250, 2150, 500, 280, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
     desenhoChao = new Desenho(imgFase, 450, 800, 500, 100, canvas.width / 2, canvas.height - 35, canvas.width + 1, 70);
     desenhoChaoChefao = new Desenho(imgFase, 800, 2135, 500, 70, canvas.width / 2, canvas.height - 35, canvas.width, 70);
@@ -1376,16 +1386,18 @@ function draw() {
     desenhoNevoa = new Desenho(imgNevoa, 400, 300, 800, 600, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
     desenhoBackChefao = new Desenho(imgFase, 450, 1040, 499, 281, canvas.width / 2, canvas.height / 2, canvas.width + 2, canvas.height);
     desenhoTetoChefao1 = new Desenho(imgFase, 800, 2020, 500, 40, canvas.width / 2, 20, canvas.width + 2, 40);
-    desenhoBack2 = new Desenho(imgFase2, 1433, 1000, 667, 500, canvas.width / 2, canvas.height / 2, canvas.width + 1, canvas.height);
+    desenhoBack2 = new Desenho(imgBackF3, 1024, 256, 2048, 512, canvas.width / 2, canvas.height / 2, canvas.width + 1, canvas.height);
     desenhoAgua2 = new Desenho(imgFase2, 260, 1100, 500, 280, canvas.width / 2, 310, canvas.width + 1, 178);
-    desenhoChao2 = new Desenho(imgFase2, 260, 840, 500, 180, canvas.width / 2, 365, canvas.width + 1, 70);
-    desenhoGrade2 = new Desenho(imgFase2, 800, 855, 500, 210, canvas.width / 2, 325, canvas.width, 40);
+    desenhoChao2 = new Desenho(imgFase2, 260, 840, 500, 180, canvas.width / 2, 365, canvas.width + 2, 70);
+    desenhoGrade2 = new Desenho(imgFase2, 800, 855, 500, 210, canvas.width / 2, 325, canvas.width + 1, 40);
     desenhoBackChefao2 = new Desenho(imgBackF2, 1023, 256, 2047, 512, canvas.width / 2, canvas.height / 2, canvas.width+1, canvas.height);
     desenhoAguaChefao2 = new Desenho(imgFase2, 260, 1100, 500, 280, canvas.width / 2, 293, canvas.width + 1, 210);
     desenhoChaoChefao2 = new Desenho(imgFase2, 260, 1390, 500, 180, canvas.width / 2, 365, canvas.width + 1, 70);
     desenhoGameOver = new Desenho(imgGameOver, 482, 275, 795, 120, canvas.width / 2, canvas.height / 2, 500, 150);
+    desenhoPoste = new Desenho(imgPoste, 175, 215, 20, 90, 250, 295, 30, 120);
+    desenhoPoste2 = new Desenho(imgPoste, 223, 214, 22, 92, 250, 295, 30, 120);
     desenhoEmily = new DesenhaEmily(imgEmily, 40, 280);
-
+    
     desenhoInimigo = new DesenhaInimigo(imgInimigo, 580, 280);
 
     desenhoInimigo2 = new DesenhaInimigo2(imgInimigo2, 780, 280);
@@ -1617,7 +1629,8 @@ function tecla(e) {
         }
         //desenhoInimigo.atualiza();
         desenhoArvore.atualizaObjeto(1.5 * direcaoX, 0);
-
+        desenhoPoste.atualizaObjeto(1.65 * direcaoX, 0);
+        desenhoPoste2.atualizaObjeto(1.65 * direcaoX, 0);
     }
     if (key === 65) {                         //pressionar tecla A
         desenhoBack.atualiza(-0.4 * direcaoX, 0);
@@ -1639,6 +1652,8 @@ function tecla(e) {
         }
         //desenhoInimigo.atualiza();
         desenhoArvore.atualizaObjeto(-1.5 * direcaoX, 0);
+        desenhoPoste.atualizaObjeto(-1.65 * direcaoX, 0);
+        desenhoPoste2.atualizaObjeto(-1.65 * direcaoX, 0);
 
     }
     if ((key === 80 || key == 112) && sairFase == 0) {
