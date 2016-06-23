@@ -993,9 +993,9 @@ function drawAnimeFase() {
         drawBase(larguraBase, alturaBase, canvas.width / 2, 115);
         escrita("Voc\u00ea perdeu a mem\u00f3ria. V\u00e1 atr\u00e1s de sua identidade.", 115, 120, 20, "black");
         desenhoAnimeFase.desenhaPers();
-        desenhoAnimeFase.proximoQuadro(200);
+        desenhoAnimeFase.proximoQuadro(150);
         tempo++;
-        if (tempo >= 200) {
+        if (tempo >= 220) {
             tempo = 0;
             sairAnimeFase = 1;
             sairFase = 0;
@@ -1455,7 +1455,7 @@ function draw() {
 
     imgPersonagem = new Image();
     imgPersonagem.src = "images/EmilySprites.png";
-    desenhoAnimeFase = new Desenho(imgPersonagem, centroImgX, centroImgY, width, height, canvas.width / 2, 330, 50, 100);
+    desenhoAnimeFase = new Desenho(imgPersonagem, centroImgX, centroImgY, width, height, 80, 320, 215, 145);
     desenhoAnimeFase2 = new Desenho(imgPersonagem, centroImgX2, centroImgY2, width2, height2, 110, 320, 120, 130);
     desenhoAnimeFimFase1 = new Desenho(imgPersonagem, centroImgX3, centroImgY3, width3, height3, 110, 320, 120, 110);
 
