@@ -739,7 +739,9 @@ function drawBackFaseChefao2() {
             desenhoGrade2.limpa();
             desenhoNevoa.limpa();
             desenhoPoste2.limpa();
+            desenhoAnimeFimFase1.limpa();
             pts = 0;
+            estadoAtual = estados.jogar;
         }
         desenhoGameOver.desenha();
     }
@@ -802,7 +804,9 @@ function drawBackFase2() {
             desenhoChao2.limpa();
             desenhoGrade2.limpa();
             desenhoPoste.limpa();
+            desenhoAnimeFimFase1.limpa();
             pts = 0;
+            estadoAtual = estados.jogar;
         }
         desenhoGameOver.desenha();
     }
@@ -882,7 +886,9 @@ function drawBackFaseChefao() {
             desenhoChaoChefao.limpa();
             desenhoTetoChefao1.limpa();
             desenhoNevoa.limpa();
+            desenhoAnimeFimFase1.limpa();
             pts = 0;
+            estadoAtual = estados.jogar;
         }
         desenhoGameOver.desenha();
     }
@@ -960,7 +966,9 @@ function drawBackFase() {
             desenhoInimigo.limpa();
             desenhoInimigo2.limpa();
             desenhoEmily.limpa();
+            desenhoAnimeFimFase1.limpa();
             pts = 0;
+            estadoAtual = estados.jogar;
         }
         desenhoChuva.atualiza(0, 2 * direcaoY);
         desenhoArvore.desenha();
