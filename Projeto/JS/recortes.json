@@ -186,8 +186,8 @@ recortes = {
           h: 26
         }
       }
-    ]
-	inimigo: [{ /*inimigo*/
+    ],
+	inimigo: [{ 
         arquivo: "InimigosFase2.png",
         movimento: {
           attacking: {
