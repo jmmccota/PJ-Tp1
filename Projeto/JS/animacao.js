@@ -34,11 +34,11 @@ var aumentaImg = 1;
 var animacaoCef = 1;
 var animacaoPers = 1;
 var imgCefet, imgLogo, imgLogo1, imgPers, imgNevoa, imgBack, imgON, imgGameOver, imgFase2, imgOFF, imgFase, imgEnter, imgBS, imgBSchefao, imgA, imgS, imgD, imgESC, imgW, imgPersonagem, imgBackF1, imgBackF2, imgBackF3, imgPoste,
-    imgBackF5, imgNeve;
+    imgBackF5, imgNeve, imgBackF6, imgNeve2;
 var desenhoCef, desenhoLogo, desenhoLogo1, desenhoPers, desenhoBack,
         desenhoChao, desenhoChaoChefao, desenhoChuva, desenhoArvore, desenhoAnimeFase, desenhoAnimeFimFase1, desenhoAnimeFase2, desenhoBackChefao,
         desenhoTetoChefao1, desenhoNevoa, desenhoBack2, desenhoChao2, desenhoAgua2, desenhoGrade2, desenhoBackChefao2, desenhoChaoChefao2, desenhoAguaChefao2,
-        desenhoGameOver, desenhoPoste, desenhoPoste2, desenhoBack3, desenhoNeve;
+        desenhoGameOver, desenhoPoste, desenhoPoste2, desenhoBack3, desenhoNeve, desenhoBack4, desenhoNeve2;
 
 //elementos do personagem da animacao
 var desPerson = 1;
@@ -66,8 +66,10 @@ var sairFase2 = 1;
 var sairAnim2 = 1;
 var sairAnim3 = 1;
 var sairAnim4 = 1;
+var sairAnim5 = 1;
 var sairFase3 = 1;
 var sairFase4 = 1;
+var sairChefao4 = 1;
 //controle de tempo em elementos que precisam de delay
 var tempo = 0;
 
@@ -663,6 +665,153 @@ function drawBase(width, height, ptX, ptY) {
     ctx.fillRect(x, y, larguraBase, alturaBase);
 }
 
+function drawBackFaseChefao4() {
+    if (estadoAtual == estados.jogar) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        desenhoBack4.desenhaEffectX();
+        desenhoChao2.desenhaEffectX();
+        desenhoGrade2.desenhaEffectX();
+        desenhoNeve.desenhaEffectY();
+        desenhoNeve.atualiza(0, 2 * direcaoY);
+        if (arrayTiros) {
+            for (i = 0; i < arrayTiros.length; i++) {
+                arrayTiros[i].desenha();
+                arrayTiros[i].atualiza();
+            }
+        }
+
+        if (arrayVidas != null) {
+            for (i = 0; i < arrayVidas.length; i++) {
+                arrayVidas[i].desenha();
+                arrayVidas[i].atualiza();
+            }
+        }
+
+        var tmpAt = new Date().getTime();
+        if (((tmpAt - initFase - tmpPause) > 50000)) {
+            sairChefao4 = 1;
+            sairAnim5 = 0;
+            initFase = new Date().getTime();
+            tmpPause = 0;
+            if (arrayTiros) {
+                while (arrayTiros.length > 0) {
+                    arrayTiros.pop();
+                }
+            }
+        }
+    }
+    else if (estadoAtual == estados.perdeu) {
+        while (arrayVidas.length > 0) {
+            arrayVidas.pop();
+        }
+
+        while (arrayTiros.length > 0) {
+            arrayTiros.pop();
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        desenhoBack4.desenhaEffectX();
+        desenhoChao2.desenhaEffectX();
+        desenhoGrade2.desenhaEffectX();
+        desenhoNeve.desenhaEffectY();
+        desenhoNeve.atualiza(0, 2 * direcaoY);
+        desenhoAnimeFimFase1.desenhaPers();
+        desenhoAnimeFimFase1.proximoQuadro(150);
+        tempo++;
+        if (tempo >= 110) {
+            tempo = 0;
+            sairFase = 1;
+            sairMenu = 0;
+            desenhoBack4.limpa();
+            desenhoChao2.limpa();
+            desenhoGrade2.limpa();
+            desenhoNeve.limpa();
+            desenhoAnimeFimFase1.limpa();
+            pts = 0;
+            estadoAtual = estados.jogar;
+        }
+        desenhoGameOver.desenha();
+    }
+}
+
+function drawBackFase4() {
+    if (estadoAtual == estados.jogar) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var tmpAt = new Date().getTime();
+        desenhoBack4.desenhaEffectX();
+        desenhoChao2.desenhaEffectX();
+        desenhoGrade2.desenhaEffectX();
+        desenhoNeve.desenhaEffectY();
+        desenhoNeve.atualiza(0, 2 * direcaoY);
+        if (arrayTiros) {
+            for (i = 0; i < arrayTiros.length; i++) {
+                arrayTiros[i].desenha();
+                arrayTiros[i].atualiza();
+            }
+        }
+
+        if (arrayVidas != null) {
+            for (i = 0; i < arrayVidas.length; i++) {
+                arrayVidas[i].desenha();
+                arrayVidas[i].atualiza();
+            }
+        }
+        
+        if (((tmpAt - initFase - tmpPause) > 50000)){
+            if (arrayTiros) {
+                while (arrayTiros.length > 0) {
+                    arrayTiros.pop();
+                }
+            }
+            drawBase(450, 90, canvas.width / 2, 110);
+            escrita("Prepare-se, seu \u00faltimo desafio ir\u00e1 iniciar-se.", 145, 100, 20, "black");
+            escrita("Mantenha o foco!", 270, 135, 20, "black");
+        
+        } 
+        if (((tmpAt - initFase - tmpPause) > 54000)) {
+            sairFase4 = 1;
+            sairChefao4 = 0;
+            initFase = new Date().getTime();
+            tmpPause = 0;
+            if (arrayTiros) {
+                while (arrayTiros.length > 0) {
+                    arrayTiros.pop();
+                }
+            }
+        }
+    }
+    else if (estadoAtual == estados.perdeu) {
+        while (arrayVidas.length > 0) {
+            arrayVidas.pop();
+        }
+
+        while (arrayTiros.length > 0) {
+            arrayTiros.pop();
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        desenhoBack4.desenhaEffectX();
+        desenhoChao2.desenhaEffectX();
+        desenhoGrade2.desenhaEffectX();
+        desenhoNeve.desenhaEffectY();
+        desenhoNeve.atualiza(0, 2 * direcaoY);
+        desenhoAnimeFimFase1.desenhaPers();
+        desenhoAnimeFimFase1.proximoQuadro(150);
+        tempo++;
+        if (tempo >= 110) {
+            tempo = 0;
+            sairFase = 1;
+            sairMenu = 0;
+            desenhoBack4.limpa();
+            desenhoAnimeFimFase1.limpa();
+            desenhoNeve2.limpa();
+            desenhoChao2.limpa();
+            desenhoGrade2.limpa();
+            pts = 0;
+            estadoAtual = estados.jogar;
+        }
+        desenhoGameOver.desenha();
+    }
+}
+
 function drawAnimacao4() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     desenhoBack3.desenhaEffectX();
@@ -1212,7 +1361,11 @@ function drawAnimeFase() {
 //faz primeira fase do jogo
 function drawFase() {
     if (sairFase == 0) {
-        if(sairAnim4 == 0)
+        if(sairChefao4 == 0)
+            drawBackFaseChefao4();
+        else if(sairFase4 == 0)
+            drawBackFase4();
+        else if(sairAnim4 == 0)
             drawAnimacao4();
         else if(sairChefao3 == 0)
             drawBackFaseChefao3();
@@ -1257,7 +1410,13 @@ function drawContinuarMenu() {
         pts = novosDados.pts;
         direcaoX = novosDados.direcaoX;
         direcaoY = novosDados.direcaoY;
-        if(novosDados.fase == 6){
+        if(novosDados.fase == 8){
+            sairChefao4 = 0;
+        }
+        else if(novosDados.fase == 7){
+            sairFase4 = 0;
+        }
+        else if(novosDados.fase == 6){
             sairChefao3 = 0;
         }
         else if(novosDados.fase == 5){
@@ -1602,6 +1761,12 @@ function draw() {
     imgNeve = new Image();
     imgNeve.src = "images/neve.png";
     
+    imgBackF6 = new Image();
+    imgBackF6.src = "images/fundoFase5.png";
+    
+    imgNeve2 = new Image();
+    imgNeve2.src = "images/neve2.png";
+    
     desenhoChuva = new Desenho(imgFase, 250, 2150, 500, 280, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
     desenhoChao = new Desenho(imgFase, 450, 800, 500, 100, canvas.width / 2, canvas.height - 35, canvas.width + 1, 70);
     desenhoChaoChefao = new Desenho(imgFase, 800, 2135, 500, 70, canvas.width / 2, canvas.height - 35, canvas.width, 70);
@@ -1621,6 +1786,9 @@ function draw() {
     desenhoPoste2 = new Desenho(imgPoste, 223, 214, 22, 92, 250, 295, 30, 120);
     desenhoBack3 = new Desenho(imgBackF5, 1024, 256, 2048, 512, canvas.width / 2, canvas.height / 2, canvas.width+1, canvas.height);
     desenhoNeve = new Desenho(imgNeve, 350, 200, 700, 400, canvas.width/2, canvas.height/2, canvas.width, canvas.height);
+    desenhoBack4 =  new Desenho(imgBackF6, 1024, 256, 2048, 512, canvas.width / 2, canvas.height / 2, canvas.width+1, canvas.height);
+    desenhoNeve2 = new Desenho(imgNeve2, 350, 200, 700, 400, canvas.width/2, canvas.height/2, canvas.width, canvas.height);
+    
     desenhoEmily = new DesenhaEmily(imgEmily, 40, 280);
     
     desenhoInimigo = new DesenhaInimigo(imgInimigo, 580, 280);
@@ -1835,6 +2003,7 @@ function tecla(e) {
         selecionarItem(indice);
     }
     if (key === 68) {                         //pressionar tecla D
+        desenhoBack4.atualiza(0.4 * direcaoX, 0);
         desenhoBack3.atualiza(0.4 * direcaoX, 0);
         desenhoBack.atualiza(0.4 * direcaoX, 0);
         desenhoChao.atualiza(1.4 * direcaoX, 0);
@@ -1860,6 +2029,7 @@ function tecla(e) {
         desenhoPoste2.atualizaObjeto(1.65 * direcaoX, 0);
     }
     if (key === 65) {                         //pressionar tecla A
+        desenhoBack4.atualiza(-0.4 * direcaoX, 0);
         desenhoBack3.atualiza(-0.4 * direcaoX, 0);
         desenhoBack.atualiza(-0.4 * direcaoX, 0);
         desenhoChao.atualiza(-1.4 * direcaoX, 0);
@@ -1974,7 +2144,13 @@ function tecla(e) {
             dados.pts = pts;
             dados.direcaoX = direcaoX;
             dados.direcaoY = direcaoY;
-            if(sairChefao3 == 0){
+            if(sairChefao4 == 0){
+                dados.fase = 8;
+            }
+            else if(sairFase4 == 0 || sairAnim4 == 0){
+                dados.fase = 7;
+            }
+            else if(sairChefao3 == 0){
                 dados.fase = 6;
             }
             else if(sairFase3 == 0 || sairAnim3 == 0){
@@ -2001,7 +2177,9 @@ function tecla(e) {
             sairFase2 = 1;
             sairChefao2 = 1;
             sairFase3 = 1;
+            sairFase4 = 1;
             sairChefao3 = 1;
+            sairChefao4 = 1;
             if (localStorage.getItem('dados')) {
                 drawBase(180, 30, canvas.width / 2, canvas.height / 2);
                 escrita("Salvo com sucesso!", canvas.width / 2 - 89, canvas.height / 2 + 8, 20, "red");
