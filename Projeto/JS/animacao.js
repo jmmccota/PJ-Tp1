@@ -14,6 +14,7 @@ var arrayVidas;
 var qtdPontos = 0;
 var pause = 0;
 var tmpPause = 0;
+var lifeWalk = false;
 estados = {
     jogar: 0,
     jogando: 1,
@@ -502,6 +503,38 @@ function DesenhaInimigo(imagem, xiCanvas, yiCanvas) {
             arrayTiros = new Array(new DesenhaTiro(imgShurikem, this.x - 15, this.y + 60));
         }
     }
+}
+
+function GanhaVida() {
+    //this.posSprites = recortes["inimigo"].movimento["running"];
+	this.life ; 
+	
+	
+	this.atualiza = function () {
+		this.life.desenha();
+		this.life.atualiza();
+		this.life.x = this.life.x-1;
+		if(this.life.x == 40){
+			arrayVidas.push(new DesenhaVida(imgVida, 0 + (arrayVidas.length * 30), 30));
+		}
+	};
+	
+	this.limpa = function () {
+        this.life = new DesenhaVida(imgVida, 500, 30);
+    };
+
+    this.desenha = function () {
+        this.life.desenha();
+    };
+	
+	this.posicaoAtual = function () {
+        return {
+            x: this.life.x,
+            y: this.life.y,
+        }
+    };
+	
+	
 }
 
 
