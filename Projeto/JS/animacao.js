@@ -127,6 +127,7 @@ var ultimo;
 var initFase = 0;
 var pts = 0;
 var ultimaNevoa = 0;
+var tmpContinuar = 0;
 // construÃ§Ã£o dos desenhos do trabalho
 function Desenho(imagem, centroImgX, centroImgY, width, height, novoCentroX, novoCentroY, novoWidth, novoHeight) {
     this.imagem = imagem;
@@ -688,11 +689,12 @@ function drawBackFaseChefao4() {
         }
 
         var tmpAt = new Date().getTime();
-        if (((tmpAt - initFase - tmpPause) > 50000)) {
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)) {
             sairChefao4 = 1;
             sairAnim5 = 0;
             initFase = new Date().getTime();
             tmpPause = 0;
+            tmpContinuar = 0;
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -756,7 +758,7 @@ function drawBackFase4() {
             }
         }
         
-        if (((tmpAt - initFase - tmpPause) > 50000)){
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)){
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -767,11 +769,12 @@ function drawBackFase4() {
             escrita("Mantenha o foco!", 270, 135, 20, "black");
         
         } 
-        if (((tmpAt - initFase - tmpPause) > 54000)) {
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 54000)) {
             sairFase4 = 1;
             sairChefao4 = 0;
             initFase = new Date().getTime();
             tmpPause = 0;
+            tmpContinuar = 0;
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -855,11 +858,12 @@ function drawBackFaseChefao3() {
         }
 
         var tmpAt = new Date().getTime();
-        if (((tmpAt - initFase - tmpPause) > 50000)) {
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)) {
             sairChefao3 = 1;
             sairAnim4 = 0;
             initFase = new Date().getTime();
             tmpPause = 0;
+            tmpContinuar = 0;
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -923,7 +927,7 @@ function drawBackFase3() {
             }
         }
         
-        if (((tmpAt - initFase - tmpPause) > 50000)){
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)){
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -934,11 +938,12 @@ function drawBackFase3() {
             escrita("Mantenha o foco!", 270, 135, 20, "black");
         
         } 
-        if (((tmpAt - initFase - tmpPause) > 54000)) {
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 54000)) {
             sairFase3 = 1;
             sairChefao3 = 0;
             initFase = new Date().getTime();
             tmpPause = 0;
+            tmpContinuar = 0;
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -1023,11 +1028,12 @@ function drawBackFaseChefao2() {
         }
 
         var tmpAt = new Date().getTime();
-        if (((tmpAt - initFase - tmpPause) > 50000)) {
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)) {
             sairChefao2 = 1;
             sairAnim3 = 0;
             initFase = new Date().getTime();
             tmpPause = 0;
+            tmpContinuar = 0;
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -1091,7 +1097,7 @@ function drawBackFase2() {
             }
         }
     
-        if (((tmpAt - initFase - tmpPause) > 50000)){
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)){
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -1102,11 +1108,12 @@ function drawBackFase2() {
             escrita("Mantenha o foco!", 270, 135, 20, "black");
         
         } 
-        if (((tmpAt - initFase - tmpPause) > 54000)) {
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 54000)) {
             sairFase2 = 1;
             sairChefao2 = 0;
             initFase = new Date().getTime();
             tmpPause = 0;
+            tmpContinuar = 0;
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -1187,12 +1194,13 @@ function drawBackFaseChefao() {
             }
         }
         var tmpAt = new Date().getTime();
-        if (((tmpAt - initFase - tmpPause) > 50000)) {
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)) {
             sairAnim2 = 0;
             sairChefao1 = 1;
             tempo = 0;
             initFase = new Date().getTime();
             tmpPause = 0;
+            tmpContinuar = 0;
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -1271,7 +1279,7 @@ function drawBackFase() {
 
         desenhoArvore.desenha();
         desenhoChuva.desenhaEffectY();
-        if (((tmpAt - initFase - tmpPause) > 50000)){
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)){
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -1282,10 +1290,11 @@ function drawBackFase() {
             escrita("Mantenha o foco!", 270, 135, 20, "black");
         
         } 
-        if (((tmpAt - initFase - tmpPause) > 54000)) {
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 54000)) {
             initFase = new Date().getTime();
             sairChefao1 = 0;
             tmpPause = 0;
+            tmpContinuar = 0;
         }
     } else if (estadoAtual == estados.perdeu) {
         while (arrayVidas.length > 0) {
@@ -1410,6 +1419,7 @@ function drawContinuarMenu() {
         pts = novosDados.pts;
         direcaoX = novosDados.direcaoX;
         direcaoY = novosDados.direcaoY;
+        tmpContinuar = tmpContinuar + novosDados.tempo;
         if(novosDados.fase == 8){
             sairChefao4 = 0;
         }
@@ -2144,6 +2154,11 @@ function tecla(e) {
             dados.pts = pts;
             dados.direcaoX = direcaoX;
             dados.direcaoY = direcaoY;
+            var tmpA = new Date().getTime();
+            if(sairAnim2 == 0 || sairAnim3 == 0 || sairAnim4 == 0)
+                dados.tempo = 0;
+            else
+                dados.tempo = tmpA - initFase + tmpPause + tmpContinuar;
             if(sairChefao4 == 0){
                 dados.fase = 8;
             }
@@ -2180,6 +2195,7 @@ function tecla(e) {
             sairFase4 = 1;
             sairChefao3 = 1;
             sairChefao4 = 1;
+            tmpContinuar = 0;
             if (localStorage.getItem('dados')) {
                 drawBase(180, 30, canvas.width / 2, canvas.height / 2);
                 escrita("Salvo com sucesso!", canvas.width / 2 - 89, canvas.height / 2 + 8, 20, "red");
