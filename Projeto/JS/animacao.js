@@ -818,6 +818,7 @@ function drawBackFaseChefao2() {
 function drawBackFase2() {
     if (estadoAtual == estados.jogar) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var tmpAt = new Date().getTime();
         desenhoBack2.desenhaEffectX();
         desenhoChao2.desenhaEffectX();
         desenhoGrade2.desenhaEffectX();
@@ -835,8 +836,19 @@ function drawBackFase2() {
                 arrayVidas[i].atualiza();
             }
         }
-        var tmpAt = new Date().getTime();
-        if (((tmpAt - initFase - tmpPause) > 50000)) {
+    
+        if (((tmpAt - initFase - tmpPause) > 50000)){
+            if (arrayTiros) {
+                while (arrayTiros.length > 0) {
+                    arrayTiros.pop();
+                }
+            }
+            drawBase(450, 90, canvas.width / 2, 110);
+            escrita("Prepare-se, seu segundo desafio ir\u00e1 iniciar-se.", 145, 100, 20, "black");
+            escrita("Mantenha o foco!", 270, 135, 20, "black");
+        
+        } 
+        if (((tmpAt - initFase - tmpPause) > 54000)) {
             sairFase2 = 1;
             sairChefao2 = 0;
             initFase = new Date().getTime();
@@ -966,6 +978,7 @@ function drawBackFaseChefao() {
 function drawBackFase() {
     if (estadoAtual == estados.jogar) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var tmpAt = new Date().getTime();
         desenhoBack.desenhaEffectX();
         desenhoChao.desenhaEffectX();
 
@@ -979,8 +992,10 @@ function drawBackFase() {
 
 
         desenhoChuva.atualiza(0, 2 * direcaoY);
-        desenhoInimigo.atualiza();
-        desenhoInimigo2.atualiza();
+        if(((tmpAt - initFase - tmpPause) <= 49000)){
+            desenhoInimigo.atualiza();
+            desenhoInimigo2.atualiza();
+        }
 
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
@@ -998,16 +1013,21 @@ function drawBackFase() {
 
         desenhoArvore.desenha();
         desenhoChuva.desenhaEffectY();
-        var tmpAt = new Date().getTime();
-        if (((tmpAt - initFase - tmpPause) > 50000)) {
-            initFase = new Date().getTime();
-            sairChefao1 = 0;
-            tmpPause = 0;
+        if (((tmpAt - initFase - tmpPause) > 50000)){
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
                 }
             }
+            drawBase(450, 90, canvas.width / 2, 110);
+            escrita("Prepare-se, seu primeiro desafio ir\u00e1 iniciar-se.", 145, 100, 20, "black");
+            escrita("Mantenha o foco!", 270, 135, 20, "black");
+        
+        } 
+        if (((tmpAt - initFase - tmpPause) > 54000)) {
+            initFase = new Date().getTime();
+            sairChefao1 = 0;
+            tmpPause = 0;
         }
     } else if (estadoAtual == estados.perdeu) {
         while (arrayVidas.length > 0) {
