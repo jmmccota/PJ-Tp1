@@ -104,6 +104,7 @@ var iLet = 0;
 
 //posicao botoes
 var bAudio = 1;
+var audio;
 
 //posicao do cursor na tela
 var posX;
@@ -583,6 +584,7 @@ function DesenhaInimigo2(imagem, xiCanvas, yiCanvas) {
                 this.movimento = "attacking";
 
                 desenhoInimigo2.atira();
+                audio.play('atira');
             }
 
             if (this.anda > 300) {
@@ -1868,7 +1870,14 @@ function draw() {
         arrayVidas[i] = new DesenhaVida(imgVida, 0 + (i * 30), 30);
     }
     audio = new Howl({//http://howlerjs.com/
-        urls: ['sound/button-41.ogg']
+        urls: ['sound/efeitos.mp3'],
+        sprite: {
+            botao: [0, 500],
+            espada: [500, 600],
+            atira: [1100, 2200],
+            pulo: [3300, 1000]
+        
+        }
     });
     drawJogo();
 }
@@ -1877,7 +1886,7 @@ function draw() {
 function somMenu(indice, event) {
     if (sairMenu == 0 && ultimoIndice != indice && bAudio == 1) {
         event.preventDefault();
-        audio.play();
+        audio.play('botao');
         //document.body.appendChild(audio);
         ultimoIndice = indice;
     }
@@ -2078,10 +2087,14 @@ function tecla(e) {
     }
     if (key === 87) {                         //pressionar tecla W
         acao = "jumping";
+        if(sairFase == 0)
+            audio.play('pulo');
         // desenhoEmily.atualiza();
     }
     if (key === 78) {                         //pressionar tecla S
         acao = "attack";
+        if(sairFase == 0)
+            audio.play('espada');
         //desenhoEmily.atualiza();
     }
     if (key === 83) {                         //pressionar tecla S
@@ -2107,6 +2120,7 @@ function tecla(e) {
     if (key === 55) {                              //pressionar tecla 7 (atirar)
         if (sairFase == 0) {
             desenhoInimigo.atira();
+            audio.play('atira');
         }
     }
 
