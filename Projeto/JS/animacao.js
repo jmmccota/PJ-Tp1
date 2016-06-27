@@ -619,7 +619,8 @@ function DesenhaInimigo2(imagem, xiCanvas, yiCanvas) {
                 this.movimento = "attacking";
 
                 desenhoInimigo2.atira();
-                audio.play('atira');
+                if(bAudio == 1)
+                    audio.play('atira');
             }
 
             if (this.anda > 300) {
@@ -732,7 +733,8 @@ function drawBackFaseChefao4() {
             initFase = new Date().getTime();
             tmpPause = 0;
             tmpContinuar = 0;
-            musicas.stop();
+            if(bAudio == 1)
+                musicas.stop();
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -768,7 +770,8 @@ function drawBackFaseChefao4() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            musicas.stop();
+            if(bAudio == 1)
+                musicas.stop();
         }
         desenhoGameOver.desenha();
     }
@@ -849,7 +852,8 @@ function drawBackFase4() {
             desenhoGrade2.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            musicas.stop();
+            if(bAudio == 1)
+                musicas.stop();
         }
         desenhoGameOver.desenha();
     }
@@ -872,8 +876,10 @@ function drawAnimacao4() {
         tempo = 0;
         sairAnim4 = 1;
         sairFase4 = 0;
-        musicas.stop();
-        musicas.play('fase4');
+        if(bAudio == 1){
+            musicas.stop();
+            musicas.play('fase4');
+        }
     }
 }
 
@@ -941,7 +947,8 @@ function drawBackFaseChefao3() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            musicas.stop();
+            if(bAudio == 1)
+                musicas.stop();
         }
         desenhoGameOver.desenha();
     }
@@ -1022,7 +1029,8 @@ function drawBackFase3() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            musicas.stop();
+            if(bAudio == 1)
+                musicas.stop();
         }
         desenhoGameOver.desenha();
     }
@@ -1043,8 +1051,10 @@ function drawAnimacao3() {
         desenhoAnimeFase2.proximoQuadro(150);
     tempo++;
     if (tempo >= 300) {
-        musicas.stop();
-        musicas.play('fase3');
+        if(bAudio == 1){
+            musicas.stop();
+            musicas.play('fase3');
+        }
         tempo = 0;
         sairAnim3 = 1;
         sairFase3 = 0;
@@ -1116,7 +1126,8 @@ function drawBackFaseChefao2() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            musicas.stop();
+            if(bAudio == 1)
+                musicas.stop();
         }
         desenhoGameOver.desenha();
     }
@@ -1195,7 +1206,8 @@ function drawBackFase2() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            musicas.stop();
+            if(bAudio == 1)
+                musicas.stop();
         }
         desenhoGameOver.desenha();
     }
@@ -1218,8 +1230,10 @@ function drawAnimacao2() {
         tempo = 0;
         sairAnim2 = 1;
         sairFase2 = 0;
-        musicas.stop();
-        musicas.play('fase2');
+        if(bAudio == 1){
+            musicas.stop();
+            musicas.play('fase2');
+        }
     }
 }
 
@@ -1285,7 +1299,8 @@ function drawBackFaseChefao() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            musicas.stop();
+            if(bAudio == 1)
+                musicas.stop();
         }
         desenhoGameOver.desenha();
     }
@@ -1376,7 +1391,8 @@ function drawBackFase() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            musicas.stop();
+            if(bAudio == 1)
+                musicas.stop();
         }
         desenhoChuva.atualiza(0, 2 * direcaoY);
         desenhoArvore.desenha();
@@ -1416,7 +1432,8 @@ function drawAnimeFase() {
             sairAnimeFase = 1;
             sairFase = 0;
             initFase = new Date().getTime();
-            musicas.play('fase1');
+            if(bAudio == 1)
+                musicas.play('fase1');
         }
     }
 }
@@ -1476,33 +1493,41 @@ function drawContinuarMenu() {
         tmpContinuar = tmpContinuar + novosDados.tempo;
         if(novosDados.fase == 8){
             sairChefao4 = 0;
-            musicas.play('fase4');
+            if(bAudio == 1)
+                musicas.play('fase4');
         }
         else if(novosDados.fase == 7){
             sairFase4 = 0;
-            musicas.play('fase4');
+            if(bAudio == 1)
+                musicas.play('fase4');
         }
         else if(novosDados.fase == 6){
             sairChefao3 = 0;
-            musicas.play('fase3');
+            if(bAudio == 1)
+                musicas.play('fase3');
         }
         else if(novosDados.fase == 5){
             sairFase3 = 0;
-            musicas.play('fase3');
+            if(bAudio == 1)
+                musicas.play('fase3');
         }
         else if (novosDados.fase == 4) {
             sairChefao2 = 0;
-            musicas.play('fase2');
+            if(bAudio == 1)
+                musicas.play('fase2');
         }
         else if (novosDados.fase == 3) {
             sairFase2 = 0;
-            musicas.play('fase2');
+            if(bAudio == 1)
+                musicas.play('fase2');
         }
         else if (novosDados.fase == 2) {
             sairChefao1 = 0;
-            musicas.play('fase1');
+            if(bAudio == 1)
+                musicas.play('fase1');
         } else{
-            musicas.play('fase1');
+            if(bAudio == 1)
+                musicas.play('fase1');
         }
         while (arrayVidas.length > 0) {
             arrayVidas.pop();
@@ -2160,13 +2185,13 @@ function tecla(e) {
     }
     if (key === 87) {                         //pressionar tecla W
         acao = "jumping";
-        if(sairFase == 0)
+        if(sairFase == 0 && bAudio == 1)
             audio.play('pulo');
         // desenhoEmily.atualiza();
     }
     if (key === 78) {                         //pressionar tecla S
         acao = "attack";
-        if(sairFase == 0)
+        if(sairFase == 0 && bAudio == 1)
             audio.play('espada');
         //desenhoEmily.atualiza();
     }
@@ -2193,7 +2218,8 @@ function tecla(e) {
     if (key === 55) {                              //pressionar tecla 7 (atirar)
         if (sairFase == 0) {
             desenhoInimigo.atira();
-            audio.play('atira');
+            if(bAudio == 1)
+                audio.play('atira');
         }
     }
 
@@ -2283,7 +2309,8 @@ function tecla(e) {
             sairChefao3 = 1;
             sairChefao4 = 1;
             tmpContinuar = 0;
-            musicas.stop();
+            if(bAudio == 1)
+                musicas.stop();
             if (localStorage.getItem('dados')) {
                 drawBase(180, 30, canvas.width / 2, canvas.height / 2);
                 escrita("Salvo com sucesso!", canvas.width / 2 - 89, canvas.height / 2 + 8, 20, "red");
