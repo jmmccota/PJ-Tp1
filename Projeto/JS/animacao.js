@@ -779,6 +779,7 @@ function drawAnimaFinal() {
     }
     
     else{
+        sairAnimaFinal = 1;
         contCreditos = 0;
         sairAnimeFase = 0;
         sairFase = 1;
@@ -793,6 +794,16 @@ function drawAnimaFinal() {
         sairAnimaFinal = 1;
         if (bAudio == 1) {
             musicas.stop();
+        }
+        if(arrayVidas){
+            while(arrayVidas.length > 0){
+                arrayVidas.pop();
+            }
+        }
+        arrayVidas = new Array(new DesenhaVida(imgVida, 0, 30));
+
+        for (var i = 1; i < 5; i++) {
+            arrayVidas[i] = new DesenhaVida(imgVida, 0 + (i * 30), 30);
         }
     }
      tempo++;
@@ -2204,6 +2215,33 @@ function tecla(e) {
             animacaoPers = 0;
             sairLetreiro = 1;
             ctx.globalAlpha = 1;
+        }
+        else if(sairAnimaFinal == 0){
+            contCreditos = 0;
+            sairAnimeFase = 0;
+            sairFase = 1;
+            desenhoBack4.limpa();
+            desenhoChao2.limpa();
+            desenhoGrade2.limpa();
+            desenhoNeve.limpa();
+            desenhoAnimeFase.limpa();
+            pts = 0;
+            estadoAtual = estados.jogar;
+            tempo = 0;
+            sairAnimaFinal = 1;
+            if (bAudio == 1) {
+                musicas.stop();
+            }
+            if(arrayVidas){
+            while(arrayVidas.length > 0){
+                arrayVidas.pop();
+            }
+            }
+            arrayVidas = new Array(new DesenhaVida(imgVida, 0, 30));
+
+            for (var i = 1; i < 5; i++) {
+                arrayVidas[i] = new DesenhaVida(imgVida, 0 + (i * 30), 30);
+            }
         }
         else if (sairMenu == 0) {                    //seleciona opÃ§Ã£o do menu
             sairMenu = 1;
