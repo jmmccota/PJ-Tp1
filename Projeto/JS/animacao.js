@@ -35,11 +35,11 @@ var aumentaImg = 1;
 var animacaoCef = 1;
 var animacaoPers = 1;
 var imgCefet, imgLogo, imgLogo1, imgPers, imgNevoa, imgBack, imgON, imgGameOver, imgFase2, imgOFF, imgFase, imgEnter, imgBS, imgBSchefao, imgA, imgS, imgD, imgESC, imgW, imgPersonagem, imgBackF1, imgBackF2, imgBackF3, imgPoste,
-    imgBackF5, imgNeve, imgBackF6, imgNeve2;
+        imgBackF5, imgNeve, imgBackF6, imgNeve2, imgFimJogo, imgDoutor, imgEncontro, imgCreditos;
 var desenhoCef, desenhoLogo, desenhoLogo1, desenhoPers, desenhoBack,
         desenhoChao, desenhoChaoChefao, desenhoChuva, desenhoArvore, desenhoAnimeFase, desenhoAnimeFimFase1, desenhoAnimeFase2, desenhoBackChefao,
         desenhoTetoChefao1, desenhoNevoa, desenhoBack2, desenhoChao2, desenhoAgua2, desenhoGrade2, desenhoBackChefao2, desenhoChaoChefao2, desenhoAguaChefao2,
-        desenhoGameOver, desenhoPoste, desenhoPoste2, desenhoBack3, desenhoNeve, desenhoBack4, desenhoNeve2;
+        desenhoGameOver, desenhoPoste, desenhoPoste2, desenhoBack3, desenhoNeve, desenhoBack4, desenhoNeve2, desenhoAnimeFimJogo, desenhoMensFimJogo, desenhoDoutor, desenhoEncontro;
 
 //elementos do personagem da animacao
 var desPerson = 1;
@@ -71,6 +71,7 @@ var sairAnim5 = 1;
 var sairFase3 = 1;
 var sairFase4 = 1;
 var sairChefao4 = 1;
+var sairAnimaFinal = 1;
 //controle de tempo em elementos que precisam de delay
 var tempo = 0;
 
@@ -80,7 +81,7 @@ var alturaMenu = 195;
 
 var larguraBase;
 var alturaBase;
-
+var contCreditos = 0;
 //imagenns a serem utilizadas no menu
 var img;
 
@@ -510,34 +511,34 @@ function DesenhaInimigo(imagem, xiCanvas, yiCanvas) {
 
 function GanhaVida() {
     //this.posSprites = recortes["inimigo"].movimento["running"];
-	this.life ; 
-	
-	
-	this.atualiza = function () {
-		this.life.desenha();
-		this.life.atualiza();
-		this.life.x = this.life.x-1;
-		if(this.life.x == 40){
-			arrayVidas.push(new DesenhaVida(imgVida, 0 + (arrayVidas.length * 30), 30));
-		}
-	};
-	
-	this.limpa = function () {
+    this.life;
+
+
+    this.atualiza = function () {
+        this.life.desenha();
+        this.life.atualiza();
+        this.life.x = this.life.x - 1;
+        if (this.life.x == 40) {
+            arrayVidas.push(new DesenhaVida(imgVida, 0 + (arrayVidas.length * 30), 30));
+        }
+    };
+
+    this.limpa = function () {
         this.life = new DesenhaVida(imgVida, 500, 30);
     };
 
     this.desenha = function () {
         this.life.desenha();
     };
-	
-	this.posicaoAtual = function () {
+
+    this.posicaoAtual = function () {
         return {
             x: this.life.x,
             y: this.life.y,
         }
     };
-	
-	
+
+
 }
 
 
@@ -619,7 +620,7 @@ function DesenhaInimigo2(imagem, xiCanvas, yiCanvas) {
                 this.movimento = "attacking";
 
                 desenhoInimigo2.atira();
-                if(bAudio == 1)
+                if (bAudio == 1)
                     audio.play('atira');
             }
 
@@ -704,6 +705,97 @@ function drawBase(width, height, ptX, ptY) {
     ctx.fillRect(x, y, larguraBase, alturaBase);
 }
 
+//desenha balao
+function drawBalao(width, height, ptX, ptY) {
+    ctx.fillStyle = "rgba(255,255,255,0.4)";
+    larguraBase = width;
+    alturaBase = height;
+    var x = parseInt(ptX - (larguraBase / 2));
+    var y = parseInt(ptY - (alturaBase / 2));
+    ctx.fillRect(x, y, larguraBase, alturaBase);
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    ctx.lineTo(x-10,y+5);
+    ctx.lineTo(x, y+10);
+    ctx.fill();
+}
+
+//desenha balao
+function drawBalao2(width, height, ptX, ptY) {
+    ctx.fillStyle = "rgba(255,255,255,0.4)";
+    larguraBase = width;
+    alturaBase = height;
+    var x = parseInt(ptX - (larguraBase / 2));
+    var y = parseInt(ptY - (alturaBase / 2));
+    ctx.fillRect(x, y, larguraBase, alturaBase);
+    ctx.beginPath();
+    ctx.moveTo(x+width,y);
+    ctx.lineTo(x+width+10,y+5);
+    ctx.lineTo(x+width, y+10);
+    ctx.fill();
+}
+
+function drawAnimaFinal() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if(tempo < 300){
+        if (tempo < 209)
+            desenhoAnimeFimJogo.proximoQuadro(150);
+        desenhoBack4.desenhaEffectX();
+        desenhoChao2.desenhaEffectX();
+        desenhoGrade2.desenhaEffectX();
+        desenhoNeve.desenhaEffectY();
+        desenhoNeve.atualiza(0, 2 * direcaoY);
+        desenhoMensFimJogo.desenha();
+        desenhoAnimeFimJogo.desenhaPers();
+    }
+    else if (tempo <= 500) {
+        desenhoDoutor.desenha();
+        drawBalao(260, 65, 445, 65);
+        escrita("Pronto. Meu objetivo foi alcan\u00e7ado.", 330, 60, 15, "black");
+        escrita("Este experimento foi um erro..", 340, 75, 15, "black");
+    }
+    else if (tempo <= 700) {
+        desenhoDoutor.desenha();
+        drawBalao(260, 55, 445, 60);
+        escrita("Reconstrua sua vida, e seja feliz!", 330, 65, 15, "black");
+    }
+    else if (tempo <= 900) {
+        desenhoDoutor.desenha();
+        drawBalao2(150, 45, 270, 300);
+        escrita("Obrigado Doutor!", 215, 300, 15, "black");
+    }
+    
+    else if (tempo <= 1100) {
+        desenhoEncontro.desenha();
+        drawBalao2(190, 45, 140, 200);
+        escrita("Minha filha, quanta saudade!", 47, 205, 15, "black");
+        drawBalao(170, 45, 610, 210);
+        escrita("Sentimos sua falta!", 540, 215, 15, "black");
+    }
+    else if(contCreditos < 800){
+        desenhoEncontro.desenha();
+        ctx.drawImage(imgCreditos, 0, 0+contCreditos, 700, 400, 0, 0, canvas.width, canvas.height);
+        contCreditos++;
+    }
+    
+    else{
+        contCreditos = 0;
+        sairAnimeFase = 0;
+        desenhoBack4.limpa();
+        desenhoChao2.limpa();
+        desenhoGrade2.limpa();
+        desenhoNeve.limpa();
+        pts = 0;
+        estadoAtual = estados.jogar;
+        tempo = 0;
+        sairAnimaFinal = 1;
+        if (bAudio == 1) {
+            musicas.stop();
+        }
+    }
+     tempo++;
+}
+
 function drawBackFaseChefao4() {
     if (estadoAtual == estados.jogar) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -729,11 +821,11 @@ function drawBackFaseChefao4() {
         var tmpAt = new Date().getTime();
         if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)) {
             sairChefao4 = 1;
-            sairAnim5 = 0;
             initFase = new Date().getTime();
             tmpPause = 0;
             tmpContinuar = 0;
-            if(bAudio == 1)
+            sairAnimaFinal = 0;
+            if (bAudio == 1)
                 musicas.stop();
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
@@ -770,7 +862,7 @@ function drawBackFaseChefao4() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.stop();
         }
         desenhoGameOver.desenha();
@@ -799,8 +891,8 @@ function drawBackFase4() {
                 arrayVidas[i].atualiza();
             }
         }
-        
-        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)){
+
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)) {
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -809,8 +901,8 @@ function drawBackFase4() {
             drawBase(450, 90, canvas.width / 2, 110);
             escrita("Prepare-se, seu \u00faltimo desafio ir\u00e1 iniciar-se.", 145, 100, 20, "black");
             escrita("Mantenha o foco!", 270, 135, 20, "black");
-        
-        } 
+
+        }
         if (((tmpAt - initFase - tmpPause + tmpContinuar) > 54000)) {
             sairFase4 = 1;
             sairChefao4 = 0;
@@ -852,7 +944,7 @@ function drawBackFase4() {
             desenhoGrade2.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.stop();
         }
         desenhoGameOver.desenha();
@@ -869,14 +961,14 @@ function drawAnimacao4() {
     drawBase(350, 45, canvas.width / 2, 110);
     escrita("Parab\u00e9ns! Continue sua jornada.", 200, 115, 20, "black");
     desenhoAnimeFase2.desenhaPers();
-    if(tempo < 70)
+    if (tempo < 70)
         desenhoAnimeFase2.proximoQuadro(150);
     tempo++;
     if (tempo >= 300) {
         tempo = 0;
         sairAnim4 = 1;
         sairFase4 = 0;
-        if(bAudio == 1){
+        if (bAudio == 1) {
             musicas.stop();
             musicas.play('fase4');
         }
@@ -947,7 +1039,7 @@ function drawBackFaseChefao3() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.stop();
         }
         desenhoGameOver.desenha();
@@ -976,8 +1068,8 @@ function drawBackFase3() {
                 arrayVidas[i].atualiza();
             }
         }
-        
-        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)){
+
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)) {
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -986,8 +1078,8 @@ function drawBackFase3() {
             drawBase(450, 90, canvas.width / 2, 110);
             escrita("Prepare-se, seu terceiro desafio ir\u00e1 iniciar-se.", 145, 100, 20, "black");
             escrita("Mantenha o foco!", 270, 135, 20, "black");
-        
-        } 
+
+        }
         if (((tmpAt - initFase - tmpPause + tmpContinuar) > 54000)) {
             sairFase3 = 1;
             sairChefao3 = 0;
@@ -1029,7 +1121,7 @@ function drawBackFase3() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.stop();
         }
         desenhoGameOver.desenha();
@@ -1047,11 +1139,11 @@ function drawAnimacao3() {
     drawBase(350, 45, canvas.width / 2, 110);
     escrita("Parab\u00e9ns! Continue sua jornada.", 200, 115, 20, "black");
     desenhoAnimeFase2.desenhaPers();
-    if(tempo < 70)
+    if (tempo < 70)
         desenhoAnimeFase2.proximoQuadro(150);
     tempo++;
     if (tempo >= 300) {
-        if(bAudio == 1){
+        if (bAudio == 1) {
             musicas.stop();
             musicas.play('fase3');
         }
@@ -1126,7 +1218,7 @@ function drawBackFaseChefao2() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.stop();
         }
         desenhoGameOver.desenha();
@@ -1154,8 +1246,8 @@ function drawBackFase2() {
                 arrayVidas[i].atualiza();
             }
         }
-    
-        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)){
+
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)) {
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -1164,8 +1256,8 @@ function drawBackFase2() {
             drawBase(450, 90, canvas.width / 2, 110);
             escrita("Prepare-se, seu segundo desafio ir\u00e1 iniciar-se.", 145, 100, 20, "black");
             escrita("Mantenha o foco!", 270, 135, 20, "black");
-        
-        } 
+
+        }
         if (((tmpAt - initFase - tmpPause + tmpContinuar) > 54000)) {
             sairFase2 = 1;
             sairChefao2 = 0;
@@ -1206,7 +1298,7 @@ function drawBackFase2() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.stop();
         }
         desenhoGameOver.desenha();
@@ -1222,7 +1314,7 @@ function drawAnimacao2() {
     drawBase(350, 45, canvas.width / 2, 110);
     escrita("Parab\u00e9ns! Continue sua jornada.", 200, 115, 20, "black");
     desenhoAnimeFase2.desenhaPers();
-    if(tempo < 70){
+    if (tempo < 70) {
         desenhoAnimeFase2.proximoQuadro(150);
     }
     tempo++;
@@ -1230,7 +1322,7 @@ function drawAnimacao2() {
         tempo = 0;
         sairAnim2 = 1;
         sairFase2 = 0;
-        if(bAudio == 1){
+        if (bAudio == 1) {
             musicas.stop();
             musicas.play('fase2');
         }
@@ -1299,7 +1391,7 @@ function drawBackFaseChefao() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.stop();
         }
         desenhoGameOver.desenha();
@@ -1324,7 +1416,7 @@ function drawBackFase() {
 
 
         desenhoChuva.atualiza(0, 2 * direcaoY);
-        if(((tmpAt - initFase - tmpPause) <= 49000)){
+        if (((tmpAt - initFase - tmpPause) <= 49000)) {
             desenhoInimigo.atualiza();
             desenhoInimigo2.atualiza();
         }
@@ -1345,8 +1437,8 @@ function drawBackFase() {
 
         desenhoArvore.desenha();
         desenhoChuva.desenhaEffectY();
-        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)){
-            
+        if (((tmpAt - initFase - tmpPause + tmpContinuar) > 50000)) {
+
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -1355,8 +1447,8 @@ function drawBackFase() {
             drawBase(450, 90, canvas.width / 2, 110);
             escrita("Prepare-se, seu primeiro desafio ir\u00e1 iniciar-se.", 145, 100, 20, "black");
             escrita("Mantenha o foco!", 270, 135, 20, "black");
-        
-        } 
+
+        }
         if (((tmpAt - initFase - tmpPause + tmpContinuar) > 54000)) {
             initFase = new Date().getTime();
             sairChefao1 = 0;
@@ -1391,7 +1483,7 @@ function drawBackFase() {
             desenhoAnimeFimFase1.limpa();
             pts = 0;
             estadoAtual = estados.jogar;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.stop();
         }
         desenhoChuva.atualiza(0, 2 * direcaoY);
@@ -1432,7 +1524,7 @@ function drawAnimeFase() {
             sairAnimeFase = 1;
             sairFase = 0;
             initFase = new Date().getTime();
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.play('fase1');
         }
     }
@@ -1441,15 +1533,17 @@ function drawAnimeFase() {
 //faz primeira fase do jogo
 function drawFase() {
     if (sairFase == 0) {
-        if(sairChefao4 == 0)
+        if (sairAnimaFinal == 0)
+            drawAnimaFinal();
+        else if (sairChefao4 == 0)
             drawBackFaseChefao4();
-        else if(sairFase4 == 0)
+        else if (sairFase4 == 0)
             drawBackFase4();
-        else if(sairAnim4 == 0)
+        else if (sairAnim4 == 0)
             drawAnimacao4();
-        else if(sairChefao3 == 0)
+        else if (sairChefao3 == 0)
             drawBackFaseChefao3();
-        else if(sairFase3 == 0)
+        else if (sairFase3 == 0)
             drawBackFase3();
         else if (sairAnim3 == 0)
             drawAnimacao3();
@@ -1473,11 +1567,13 @@ function drawFase() {
         }
         drawBase(75, 20, 636, 23);
         escrita("FPS: " + fps, 600, 30, 20, "red");
-        drawBase(90, 20, 636, 45);
-        escrita(pts + "pts", 600, 53, 20, "blue");
+        if(sairAnimaFinal == 1){
+            drawBase(90, 20, 636, 45);
+            escrita(pts + "pts", 600, 53, 20, "blue");
 
-        drawBase(80, 20, 70, 23);
-        escrita("Vidas: " + arrayVidas.length, 30, 30, 20, "red");
+            drawBase(80, 20, 70, 23);
+            escrita("Vidas: " + arrayVidas.length, 30, 30, 20, "red");
+        }
         // ------------------->        continuar a fase a partir daki
     }
 }
@@ -1491,42 +1587,42 @@ function drawContinuarMenu() {
         direcaoX = novosDados.direcaoX;
         direcaoY = novosDados.direcaoY;
         tmpContinuar = tmpContinuar + novosDados.tempo;
-        if(novosDados.fase == 8){
+        if (novosDados.fase == 8) {
             sairChefao4 = 0;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.play('fase4');
         }
-        else if(novosDados.fase == 7){
+        else if (novosDados.fase == 7) {
             sairFase4 = 0;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.play('fase4');
         }
-        else if(novosDados.fase == 6){
+        else if (novosDados.fase == 6) {
             sairChefao3 = 0;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.play('fase3');
         }
-        else if(novosDados.fase == 5){
+        else if (novosDados.fase == 5) {
             sairFase3 = 0;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.play('fase3');
         }
         else if (novosDados.fase == 4) {
             sairChefao2 = 0;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.play('fase2');
         }
         else if (novosDados.fase == 3) {
             sairFase2 = 0;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.play('fase2');
         }
         else if (novosDados.fase == 2) {
             sairChefao1 = 0;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.play('fase1');
-        } else{
-            if(bAudio == 1)
+        } else {
+            if (bAudio == 1)
                 musicas.play('fase1');
         }
         while (arrayVidas.length > 0) {
@@ -1840,31 +1936,34 @@ function draw() {
 
     imgGameOver = new Image();
     imgGameOver.src = "images/GameOver.png";
-    
+
     imgBackF1 = new Image();
     imgBackF1.src = "images/fundoFase1.png";
-    
+
     imgBackF2 = new Image();
     imgBackF2.src = "images/fundoFase2.png";
 
     imgBackF3 = new Image();
     imgBackF3.src = "images/fundoFase3.png";
-    
+
     imgPoste = new Image();
     imgPoste.src = "images/poste.png";
-    
+
     imgBackF5 = new Image();
     imgBackF5.src = "images/fundoFase4.png";
-    
+
     imgNeve = new Image();
     imgNeve.src = "images/neve.png";
-    
+
     imgBackF6 = new Image();
     imgBackF6.src = "images/fundoFase5.png";
-    
+
     imgNeve2 = new Image();
     imgNeve2.src = "images/neve2.png";
     
+    imgDoutor = new Image();
+    imgDoutor.src = "images/doutor.png";
+
     desenhoChuva = new Desenho(imgFase, 250, 2150, 500, 280, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
     desenhoChao = new Desenho(imgFase, 450, 800, 500, 100, canvas.width / 2, canvas.height - 35, canvas.width + 1, 70);
     desenhoChaoChefao = new Desenho(imgFase, 800, 2135, 500, 70, canvas.width / 2, canvas.height - 35, canvas.width, 70);
@@ -1876,19 +1975,19 @@ function draw() {
     desenhoAgua2 = new Desenho(imgFase2, 260, 1100, 500, 280, canvas.width / 2, 310, canvas.width + 1, 178);
     desenhoChao2 = new Desenho(imgFase2, 260, 840, 500, 180, canvas.width / 2, 365, canvas.width + 2, 70);
     desenhoGrade2 = new Desenho(imgFase2, 800, 855, 500, 210, canvas.width / 2, 325, canvas.width + 1, 40);
-    desenhoBackChefao2 = new Desenho(imgBackF2, 1023, 256, 2047, 512, canvas.width / 2, canvas.height / 2, canvas.width+1, canvas.height);
+    desenhoBackChefao2 = new Desenho(imgBackF2, 1023, 256, 2047, 512, canvas.width / 2, canvas.height / 2, canvas.width + 1, canvas.height);
     desenhoAguaChefao2 = new Desenho(imgFase2, 260, 1100, 500, 280, canvas.width / 2, 293, canvas.width + 1, 210);
     desenhoChaoChefao2 = new Desenho(imgFase2, 260, 1390, 500, 180, canvas.width / 2, 365, canvas.width + 1, 70);
     desenhoGameOver = new Desenho(imgGameOver, 482, 275, 795, 120, canvas.width / 2, canvas.height / 2, 500, 150);
     desenhoPoste = new Desenho(imgPoste, 175, 215, 20, 90, 250, 295, 30, 120);
     desenhoPoste2 = new Desenho(imgPoste, 223, 214, 22, 92, 250, 295, 30, 120);
-    desenhoBack3 = new Desenho(imgBackF5, 1024, 256, 2048, 512, canvas.width / 2, canvas.height / 2, canvas.width+1, canvas.height);
-    desenhoNeve = new Desenho(imgNeve, 350, 200, 700, 400, canvas.width/2, canvas.height/2, canvas.width, canvas.height);
-    desenhoBack4 =  new Desenho(imgBackF6, 1024, 256, 2048, 512, canvas.width / 2, canvas.height / 2, canvas.width+1, canvas.height);
-    desenhoNeve2 = new Desenho(imgNeve2, 350, 200, 700, 400, canvas.width/2, canvas.height/2, canvas.width, canvas.height);
-    
+    desenhoBack3 = new Desenho(imgBackF5, 1024, 256, 2048, 512, canvas.width / 2, canvas.height / 2, canvas.width + 1, canvas.height);
+    desenhoNeve = new Desenho(imgNeve, 350, 200, 700, 400, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
+    desenhoBack4 = new Desenho(imgBackF6, 1024, 256, 2048, 512, canvas.width / 2, canvas.height / 2, canvas.width + 1, canvas.height);
+    desenhoNeve2 = new Desenho(imgNeve2, 350, 200, 700, 400, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
+    desenhoDoutor = new Desenho(imgDoutor, 960, 540, 1920, 1080, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
     desenhoEmily = new DesenhaEmily(imgEmily, 40, 280);
-    
+
     desenhoInimigo = new DesenhaInimigo(imgInimigo, 580, 280);
 
     desenhoInimigo2 = new DesenhaInimigo2(imgInimigo2, 780, 280);
@@ -1925,7 +2024,15 @@ function draw() {
 
     imgESC = new Image();
     imgESC.src = "images/ESC.png";
-  
+
+    imgFimJogo = new Image();
+    imgFimJogo.src = "images/fim.png";
+    
+    imgEncontro = new Image();
+    imgEncontro.src = "images/encontro.png";
+    
+    imgCreditos = new Image();
+    imgCreditos.src = "images/creditos.png";
 
     var centroImgX = recortes["emily"].movimento.animacao.x;
     var centroImgY = recortes["emily"].movimento.animacao.y;
@@ -1942,6 +2049,11 @@ function draw() {
     var width3 = recortes["emily"].movimento.animacaoFimFase.h;
     var height3 = recortes["emily"].movimento.animacaoFimFase.w;
 
+    var centroImgX4 = recortes["emily"].movimento.animacaoFinalJogo.x;
+    var centroImgY4 = recortes["emily"].movimento.animacaoFinalJogo.y;
+    var height4 = recortes["emily"].movimento.animacaoFinalJogo.h;
+    var width4 = recortes["emily"].movimento.animacaoFinalJogo.w;
+
     estadoAtual = estados.jogar;
 
     imgPersonagem = new Image();
@@ -1949,7 +2061,10 @@ function draw() {
     desenhoAnimeFase = new Desenho(imgPersonagem, centroImgX, centroImgY, width, height, 80, 320, 215, 145);
     desenhoAnimeFase2 = new Desenho(imgPersonagem, centroImgX2, centroImgY2, width2, height2, 110, 320, 120, 130);
     desenhoAnimeFimFase1 = new Desenho(imgPersonagem, centroImgX3, centroImgY3, width3, height3, 110, 320, 120, 110);
-
+    desenhoAnimeFimJogo = new Desenho(imgPersonagem, centroImgX4, centroImgY4, width4, height4, 110, 320, 120, 110);
+    desenhoMensFimJogo = new Desenho(imgFimJogo, 960, 540, 1920, 1080,canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
+    desenhoEncontro = new Desenho(imgEncontro, 960, 540, 1920, 1080,canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
+    
     arrayVidas = new Array(new DesenhaVida(imgVida, 0, 30));
 
     for (var i = 1; i < 5; i++) {
@@ -1962,7 +2077,7 @@ function draw() {
             espada: [500, 600],
             atira: [1100, 2200],
             pulo: [3300, 1000]
-        
+
         }
     });
     musicas = new Howl({//http://howlerjs.com/
@@ -1971,7 +2086,7 @@ function draw() {
         volume: 0.5,
         sprite: {
             fase1: [0, 178000],
-            fase2: [178000, 95000], 
+            fase2: [178000, 95000],
             fase3: [274000, 229000],
             fase4: [501000, 175000],
             chefao: [667000, 21000]
@@ -2135,7 +2250,7 @@ function tecla(e) {
         desenhoBackChefao2.atualiza(0.4 * direcaoX, 0);
         desenhoAguaChefao2.atualiza(0.37 * direcaoX, 0);
         desenhoChaoChefao2.atualiza(1.4 * direcaoX, 0);
-        
+
         acao = "walking";
         if (sairFase == 0 && sairAnimeFase == 1 && sairAnim2 == 1 && pause == 0) {
             desenhoEmily.atualiza();
@@ -2185,13 +2300,13 @@ function tecla(e) {
     }
     if (key === 87) {                         //pressionar tecla W
         acao = "jumping";
-        if(sairFase == 0 && bAudio == 1)
+        if (sairFase == 0 && bAudio == 1)
             audio.play('pulo');
         // desenhoEmily.atualiza();
     }
     if (key === 78) {                         //pressionar tecla S
         acao = "attack";
-        if(sairFase == 0 && bAudio == 1)
+        if (sairFase == 0 && bAudio == 1)
             audio.play('espada');
         //desenhoEmily.atualiza();
     }
@@ -2218,7 +2333,7 @@ function tecla(e) {
     if (key === 55) {                              //pressionar tecla 7 (atirar)
         if (sairFase == 0) {
             desenhoInimigo.atira();
-            if(bAudio == 1)
+            if (bAudio == 1)
                 audio.play('atira');
         }
     }
@@ -2268,20 +2383,20 @@ function tecla(e) {
             dados.direcaoX = direcaoX;
             dados.direcaoY = direcaoY;
             var tmpA = new Date().getTime();
-            if(sairAnim2 == 0 || sairAnim3 == 0 || sairAnim4 == 0)
+            if (sairAnim2 == 0 || sairAnim3 == 0 || sairAnim4 == 0)
                 dados.tempo = 0;
             else
                 dados.tempo = tmpA - initFase + tmpPause + tmpContinuar;
-            if(sairChefao4 == 0){
+            if (sairChefao4 == 0) {
                 dados.fase = 8;
             }
-            else if(sairFase4 == 0 || sairAnim4 == 0){
+            else if (sairFase4 == 0 || sairAnim4 == 0) {
                 dados.fase = 7;
             }
-            else if(sairChefao3 == 0){
+            else if (sairChefao3 == 0) {
                 dados.fase = 6;
             }
-            else if(sairFase3 == 0 || sairAnim3 == 0){
+            else if (sairFase3 == 0 || sairAnim3 == 0) {
                 dados.fase = 5;
             }
             else if (sairChefao2 == 0) {
@@ -2309,7 +2424,7 @@ function tecla(e) {
             sairChefao3 = 1;
             sairChefao4 = 1;
             tmpContinuar = 0;
-            if(bAudio == 1)
+            if (bAudio == 1)
                 musicas.stop();
             if (localStorage.getItem('dados')) {
                 drawBase(180, 30, canvas.width / 2, canvas.height / 2);
