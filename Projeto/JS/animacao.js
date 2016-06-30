@@ -838,8 +838,6 @@ function drawBackFaseChefao4() {
             tmpPause = 0;
             tmpContinuar = 0;
             sairAnimaFinal = 0;
-            if (bAudio == 1)
-                musicas.stop();
             if (arrayTiros) {
                 while (arrayTiros.length > 0) {
                     arrayTiros.pop();
@@ -2084,7 +2082,7 @@ function draw() {
         arrayVidas[i] = new DesenhaVida(imgVida, 0 + (i * 30), 30);
     }
     audio = new Howl({//http://howlerjs.com/
-        urls: ['sound/efeitos.mp3'],
+        urls: ['sound/efeitos.mp3', 'sound/efeitos.ogg'],
         sprite: {
             botao: [0, 500],
             espada: [500, 600],
@@ -2094,7 +2092,7 @@ function draw() {
         }
     });
     musicas = new Howl({//http://howlerjs.com/
-        urls: ['sound/musicas.mp3'],
+        urls: ['sound/musicas.mp3', 'sound/musicas.ogg'],
         loop: true,
         volume: 0.5,
         sprite: {
@@ -2102,7 +2100,8 @@ function draw() {
             fase2: [178000, 95000],
             fase3: [274000, 229000],
             fase4: [501000, 175000],
-            chefao: [667000, 21000]
+            chefao: [667000, 21000],
+            menu: [688000, 160000]
         }
     });
     drawJogo();
@@ -2414,7 +2413,7 @@ function tecla(e) {
         }
     }
     else if (key === 27) {
-        if (sairFase == 0 && pause == 0) {
+        if (sairFase == 0 && pause == 0 && sairAnimaFinal == 1) {
             sairFase = 1;
             sairMenu = 0;
             var dados = {};
