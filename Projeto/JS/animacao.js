@@ -244,6 +244,7 @@ function DesenhaEmily(imagem, xiCanvas, yiCanvas) {
     this.auxPulo = 0;
     this.anda = 0;
     this.tempo = 0;
+    this.sentido = 1;
     this.x = xiCanvas + this.anda;
     this.y = yiCanvas + this.auxPulo;
 
@@ -255,7 +256,7 @@ function DesenhaEmily(imagem, xiCanvas, yiCanvas) {
     };
 
     this.limpa = function () {
-        ctx.clearRect(this.novoCentroX - (this.novoWidth / 2), this.novoCentroY - (this.novoHeight / 2), this.novoWidth, this.novoHeight);
+        ctx.clearRect();
         this.proximaImg = 0;
         this.movimento = acao;
         this.auxPulo = 0;
@@ -266,72 +267,88 @@ function DesenhaEmily(imagem, xiCanvas, yiCanvas) {
     };
 
     this.desenha = function () {
+        ctx.save();
+
+        if (this.sentido == -1) {
+            ctx.translate(50, 0);
+            ctx.scale(-1, 1);
+            ctx.translate(-50, 0);
+        }
         ctx.drawImage(this.imagem, this.posSprites.x[this.proximaImg], this.posSprites.y[this.proximaImg], this.posSprites.w[this.proximaImg], this.posSprites.h[this.proximaImg], this.x, this.y + this.auxPulo, this.posSprites.w[this.proximaImg] - 10, this.posSprites.h[this.proximaImg] - 40);
+
+        ctx.restore();
     };
 
     this.atualiza = function () {
-        this.x = xiCanvas + this.anda;
-        this.y = yiCanvas + this.auxPulo;
-        if (acao == "attack" && this.tempo % 5 == 0) {
+        if (pulando == 1)
+            acao = "jumping";
 
+        if (acao == "attack" && this.tempo % 5 == 0) {
             if (this.movimento != acao) {
                 this.movimento = acao
-                this.proximaImg = 0;
+                this.proximaImg = -1;
 
                 this.posSprites = recortes["emily"].movimento[this.movimento];
             }
 
-            if (this.movimento == "jumping") {
-                if (this.proximaImg < (this.posSprites.x.length - 2) /*/ 2*/) {
-                    pulando = 1;
-                    this.auxPulo = this.auxPulo - 30;
-                } else {
-                    this.auxPulo = this.auxPulo + 30;
-                    if (pulando && this.auxPulo == 0) {
-                        acao = "walking";
-                        pulando = 0;
-                    }
-                }
+            if (this.proximaImg == 0) {
+                audio.play('espada');
             }
 
+            this.proximaImg++;
 
-            ctx.drawImage(this.imagem, this.posSprites.x[this.proximaImg], this.posSprites.y[this.proximaImg], this.posSprites.w[this.proximaImg], this.posSprites.h[this.proximaImg], this.x, this.y, this.posSprites.w[this.proximaImg] - 10, this.posSprites.h[this.proximaImg] - 4);
             this.proximaImg++;
 
             if (this.proximaImg >= this.posSprites.x.length) {
                 this.proximaImg = 0;
                 acao = "walking";
             }
-        }
-        if (this.tempo % 11 == 0) {
+        } else if (acao == "jumping" && this.tempo % 11 == 0) {
             if (this.movimento != acao) {
-                this.movimento = acao
+                this.movimento = acao;
+                pulando = 1;
                 this.proximaImg = 0;
+
                 this.posSprites = recortes["emily"].movimento[this.movimento];
             }
 
-            if (this.movimento == "jumping") {
-                if (this.proximaImg < (this.posSprites.x.length - 2) /*/ 2*/) {
-                    pulando = 1;
-                    this.auxPulo = this.auxPulo - 30;
-                } else {
-                    this.auxPulo = this.auxPulo + 30;
-                    if (pulando && this.auxPulo == 0) {
-                        acao = "walking";
-                        pulando = 0;
-                    }
-                }
+            if (this.proximaImg < (this.posSprites.x.length / 2) /*/ 2*/) {
+                this.auxPulo = this.auxPulo - 30;
+            } else if (this.proximaImg > (this.posSprites.x.length / 2)) {
+                this.auxPulo = this.auxPulo + 30;
             }
 
+            if (this.proximaImg == 0) {
+                audio.play('pulo');
+            }
 
-            ctx.drawImage(this.imagem, this.posSprites.x[this.proximaImg], this.posSprites.y[this.proximaImg], this.posSprites.w[this.proximaImg], this.posSprites.h[this.proximaImg], this.x, this.y, this.posSprites.w[this.proximaImg] - 10, this.posSprites.h[this.proximaImg] - 4);
             this.proximaImg++;
 
-            if (this.proximaImg >= this.posSprites.x.length)
+            if (this.proximaImg >= this.posSprites.x.length) {
                 this.proximaImg = 0;
+                this.auxPulo = 0;
+                pulando = 0;
+                acao = "walking";
+            }
+        } else if (acao == "walking" && this.tempo % 11 == 0) {
+            if (this.movimento != acao) {
+                this.movimento = acao
+                this.proximaImg = 0;
+
+                this.posSprites = recortes["emily"].movimento[this.movimento];
+            }
+
+            this.proximaImg++;
+
+            if (this.proximaImg >= this.posSprites.x.length) {
+                this.proximaImg = 0;
+            }
         }
 
         this.tempo = this.tempo + 1;
+
+        this.x = xiCanvas + this.anda;
+        this.y = yiCanvas + this.auxPulo;
     };
 
     this.posicaoAtual = function () {
@@ -482,9 +499,9 @@ function DesenhaInimigo(imagem, xiCanvas, yiCanvas) {
             //this.anda = this.anda - 10;
             //}
 
-            if (this.movimento == "attacking" && this.proximaImg == parseInt(this.posSprites.x.length / 5)) {
+            //if (this.movimento == "attacking" && this.proximaImg == parseInt(this.posSprites.x.length / 5)) {
                 // desenhoInimigo.atira();
-            }
+            //}
 
         }
 
@@ -506,6 +523,8 @@ function DesenhaInimigo(imagem, xiCanvas, yiCanvas) {
         } else {
             arrayTiros = new Array(new DesenhaTiro(imgShurikem, this.x - 15, this.y + 60));
         }
+
+        audio.play('atira');
     }
 }
 
@@ -652,6 +671,8 @@ function DesenhaInimigo2(imagem, xiCanvas, yiCanvas) {
         } else {
             arrayTiros = new Array(new DesenhaTiro(imgShurikem, this.x - 15, this.y + 60));
         }
+
+        audio.play('atira');
     }
 }
 
@@ -2292,6 +2313,7 @@ function tecla(e) {
 
         acao = "walking";
         if (sairFase == 0 && sairAnimeFase == 1 && sairAnim2 == 1 && pause == 0) {
+            desenhoEmily.sentido = 1;
             desenhoEmily.atualiza();
         }
         //desenhoInimigo.atualiza();
@@ -2317,6 +2339,7 @@ function tecla(e) {
         desenhoChaoChefao2.atualiza(-1.4 * direcaoX, 0);
         acao = "walking";
         if (sairFase == 0 && sairAnimeFase == 1 && sairAnim2 == 1 && pause == 0) {
+            desenhoEmily.sentido = -1;
             desenhoEmily.atualiza();
         }
         //desenhoInimigo.atualiza();
@@ -2339,14 +2362,14 @@ function tecla(e) {
     }
     if (key === 87) {                         //pressionar tecla W
         acao = "jumping";
-        if (sairFase == 0 && bAudio == 1)
-            audio.play('pulo');
+        //if (sairFase == 0 && bAudio == 1)
+        //    audio.play('pulo');
         // desenhoEmily.atualiza();
     }
     if (key === 78) {                         //pressionar tecla S
         acao = "attack";
-        if (sairFase == 0 && bAudio == 1)
-            audio.play('espada');
+        //if (sairFase == 0 && bAudio == 1)
+        //    audio.play('espada');
         //desenhoEmily.atualiza();
     }
     if (key === 83) {                         //pressionar tecla S
@@ -2372,8 +2395,8 @@ function tecla(e) {
     if (key === 55) {                              //pressionar tecla 7 (atirar)
         if (sairFase == 0) {
             desenhoInimigo.atira();
-            if (bAudio == 1)
-                audio.play('atira');
+            //if (bAudio == 1)
+            //    audio.play('atira');
         }
     }
 
@@ -2412,7 +2435,7 @@ function tecla(e) {
             }
         }
     }
-    else if (key === 27) {
+    else if (key === 27) {                                //pressionar tecla ←
         if (sairFase == 0 && pause == 0 && sairAnimaFinal == 1) {
             sairFase = 1;
             sairMenu = 0;
