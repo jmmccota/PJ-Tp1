@@ -786,6 +786,7 @@ function drawAnimaFinal() {
         desenhoChao2.limpa();
         desenhoGrade2.limpa();
         desenhoNeve.limpa();
+        desenhoAnimeFase.limpa();
         pts = 0;
         estadoAtual = estados.jogar;
         tempo = 0;
