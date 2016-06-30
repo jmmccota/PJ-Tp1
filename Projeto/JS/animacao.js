@@ -738,7 +738,7 @@ function drawBalao2(width, height, ptX, ptY) {
 function drawAnimaFinal() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     if(tempo < 300){
-        if (tempo < 209)
+        if (tempo < 200)
             desenhoAnimeFimJogo.proximoQuadro(150);
         desenhoBack4.desenhaEffectX();
         desenhoChao2.desenhaEffectX();
@@ -781,6 +781,7 @@ function drawAnimaFinal() {
     else{
         contCreditos = 0;
         sairAnimeFase = 0;
+        sairFase = 1;
         desenhoBack4.limpa();
         desenhoChao2.limpa();
         desenhoGrade2.limpa();
