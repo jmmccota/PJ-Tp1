@@ -878,6 +878,10 @@ function drawBackFaseChefao4() {
         if (acao == "jumping" || acao == "attack")
             desenhoEmily.atualiza();
 
+        if (((tmpAt - initFase - tmpPause) <= 49000)) {
+            desenhoInimigo2.atualiza(1.5 * direcaoX);
+        }
+
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
                 arrayTiros[i].desenha();
@@ -960,6 +964,13 @@ function drawBackFase4() {
 
         if (acao == "jumping" || acao == "attack")
             desenhoEmily.atualiza();
+
+        if (((tmpAt - initFase - tmpPause) <= 49000)) {
+            desenhoInimigo.atualiza(1.5 * direcaoX);
+            desenhoInimigo11.atualiza(1.5 * direcaoX);
+            desenhoInimigo2.atualiza(1.5 * direcaoX);
+            desenhoInimigo22.atualiza(1.5 * direcaoX);
+        }
 
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
@@ -1074,6 +1085,9 @@ function drawBackFaseChefao3() {
         if (acao == "jumping" || acao == "attack")
             desenhoEmily.atualiza();
 
+        if (((tmpAt - initFase - tmpPause) <= 49000)) {
+            desenhoInimigo2.atualiza(1.5 * direcaoX);
+        }
 
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
@@ -1157,6 +1171,13 @@ function drawBackFase3() {
 
         if (acao == "jumping" || acao == "attack")
             desenhoEmily.atualiza();
+
+        if (((tmpAt - initFase - tmpPause) <= 49000)) {
+            desenhoInimigo.atualiza(1.5 * direcaoX);
+            desenhoInimigo11.atualiza(1.5 * direcaoX);
+            desenhoInimigo2.atualiza(1.5 * direcaoX);
+            desenhoInimigo22.atualiza(1.5 * direcaoX);
+        }
 
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
@@ -1272,6 +1293,10 @@ function drawBackFaseChefao2() {
         if (acao == "jumping" || acao == "attack")
             desenhoEmily.atualiza();
 
+        if (((tmpAt - initFase - tmpPause) <= 49000)) {
+            desenhoInimigo2.atualiza(1.5 * direcaoX);
+        }
+
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
                 arrayTiros[i].desenha();
@@ -1354,6 +1379,13 @@ function drawBackFase2() {
 
         if (acao == "jumping" || acao == "attack")
             desenhoEmily.atualiza();
+
+        if (((tmpAt - initFase - tmpPause) <= 49000)) {
+            desenhoInimigo.atualiza(1.5 * direcaoX);
+            desenhoInimigo11.atualiza(1.5 * direcaoX);
+            desenhoInimigo2.atualiza(1.5 * direcaoX);
+            desenhoInimigo22.atualiza(1.5 * direcaoX);
+        }
 
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
@@ -1466,6 +1498,10 @@ function drawBackFaseChefao() {
         if (acao == "jumping" || acao == "attack")
             desenhoEmily.atualiza();
 
+        if (((tmpAt - initFase - tmpPause) <= 49000)) {
+            desenhoInimigo2.atualiza(1.5 * direcaoX);
+        }
+
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
                 arrayTiros[i].desenha();
@@ -1550,7 +1586,9 @@ function drawBackFase() {
         desenhoChuva.atualiza(0, 2 * direcaoY);
         if (((tmpAt - initFase - tmpPause) <= 49000)) {
             desenhoInimigo.atualiza(1.5 * direcaoX);
+            desenhoInimigo11.atualiza(1.5 * direcaoX);
             desenhoInimigo2.atualiza(1.5 * direcaoX);
+            desenhoInimigo22.atualiza(1.5 * direcaoX);
         }
 
         if (arrayTiros) {
@@ -1592,8 +1630,10 @@ function drawBackFase() {
             arrayVidas.pop();
         }
 
-        while (arrayTiros.length > 0) {
-            arrayTiros.pop();
+        if (arrayTiros != null) {
+            while (arrayTiros.length > 0) {
+                arrayTiros.pop();
+            }
         }
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         desenhoBack.desenhaEffectX();
@@ -2126,7 +2166,7 @@ function draw() {
     desenhoInimigo = new DesenhaInimigo(imgInimigo, 580, 280);
     desenhoInimigo11 = new DesenhaInimigo(imgInimigo, 480, 280);
     desenhoInimigo2 = new DesenhaInimigo2(imgInimigo2, 780, 280);
-    desenhoInimigo22 = new DesenhaInimigo2(imgInimigo2, 380, 280);
+    desenhoInimigo22 = new DesenhaInimigo2(imgInimigo2, 580, 280);
 
     imgON = new Image();
     imgON.src = "images/on.png";
