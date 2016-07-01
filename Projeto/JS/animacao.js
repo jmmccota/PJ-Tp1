@@ -245,6 +245,7 @@ function DesenhaEmily(imagem, xiCanvas, yiCanvas) {
     this.anda = 0;
     this.tempo = 0;
     this.sentido = 1;
+	this.a = 5;
     this.x = xiCanvas + this.anda;
     this.y = yiCanvas + this.auxPulo;
 
@@ -279,11 +280,27 @@ function DesenhaEmily(imagem, xiCanvas, yiCanvas) {
         ctx.restore();
     };
 
-    this.atualiza = function () {
+    this.atualiza = function (x, y) {
+		
+		this.deslocaX += x;
+        this.deslocaY += y;
+        if (this.deslocaX <= this.novoWidth * -1 || this.deslocaX >= this.novoWidth) {
+            this.deslocaX = 0;
+        }
+        if (this.deslocaY <= this.novoHeight * -1 || this.deslocaY >= this.novoHeight) {
+            this.deslocaY = 0;
+        }
+		
+		if(Math.abs(x) < 2.8){
+			this.a = 10;
+		} else {
+			this.a = 5;
+		}
+		
         if (pulando == 1)
             acao = "jumping";
 
-        if (acao == "attack" && this.tempo % 5 == 0) {
+        if (acao == "attack" && this.tempo % this.a == 0) {
             if (this.movimento != acao) {
                 this.movimento = acao
                 this.proximaImg = -1;
@@ -466,8 +483,8 @@ function DesenhaInimigo(imagem, xiCanvas, yiCanvas) {
         ctx.drawImage(this.imagem, this.posSprites.x[this.proximaImg], this.posSprites.y[this.proximaImg], this.posSprites.w[this.proximaImg], this.posSprites.h[this.proximaImg], this.x, this.y, this.posSprites.w[this.proximaImg] - 20, this.posSprites.h[this.proximaImg] - 55);
     };
 
-    this.atualiza = function () {
-        this.x = xiCanvas + this.anda;
+    this.atualiza = function (xm) {
+        this.x = xiCanvas + this.anda + xm;
         this.y = yiCanvas;
 
         Colisao(this, desenhoEmily);
@@ -597,8 +614,8 @@ function DesenhaInimigo2(imagem, xiCanvas, yiCanvas) {
         ctx.drawImage(this.imagem, this.posSprites.x[this.proximaImg], this.posSprites.y[this.proximaImg], this.posSprites.w[this.proximaImg], this.posSprites.h[this.proximaImg], this.x, this.y, this.posSprites.w[this.proximaImg] - 20, this.posSprites.h[this.proximaImg] - 55);
     };
 
-    this.atualiza = function () {
-        this.x = xiCanvas + this.anda;
+    this.atualiza = function (xm) {
+        this.x = xiCanvas + this.anda + xm;
         this.y = yiCanvas;
 
         Colisao(this, desenhoEmily);
@@ -1517,8 +1534,8 @@ function drawBackFase() {
 
         desenhoChuva.atualiza(0, 2 * direcaoY);
         if (((tmpAt - initFase - tmpPause) <= 49000)) {
-            desenhoInimigo.atualiza();
-            desenhoInimigo2.atualiza();
+            desenhoInimigo.atualiza(1.5 * direcaoX);
+            desenhoInimigo2.atualiza(1.5 * direcaoX);
         }
 
         if (arrayTiros) {
@@ -2379,13 +2396,15 @@ function tecla(e) {
         desenhoBackChefao2.atualiza(0.4 * direcaoX, 0);
         desenhoAguaChefao2.atualiza(0.37 * direcaoX, 0);
         desenhoChaoChefao2.atualiza(1.4 * direcaoX, 0);
+		desenhoEmily.atualiza(1.4 * direcaoX, 0);
 
         acao = "walking";
         if (sairFase == 0 && sairAnimeFase == 1 && sairAnim2 == 1 && pause == 0) {
             desenhoEmily.sentido = 1;
             desenhoEmily.atualiza();
         }
-        //desenhoInimigo.atualiza();
+        desenhoInimigo.atualiza(1.5 * direcaoX);
+		desenhoInimigo2.atualiza(1.5 * direcaoX);
         desenhoArvore.atualizaObjeto(1.5 * direcaoX, 0);
         desenhoPoste.atualizaObjeto(1.65 * direcaoX, 0);
         desenhoPoste2.atualizaObjeto(1.65 * direcaoX, 0);
@@ -2411,7 +2430,8 @@ function tecla(e) {
             desenhoEmily.sentido = -1;
             desenhoEmily.atualiza();
         }
-        //desenhoInimigo.atualiza();
+        desenhoInimigo.atualiza(1.5 * direcaoX);
+		desenhoInimigo2.atualiza(1.5 * direcaoX);
         desenhoArvore.atualizaObjeto(-1.5 * direcaoX, 0);
         desenhoPoste.atualizaObjeto(-1.65 * direcaoX, 0);
         desenhoPoste2.atualizaObjeto(-1.65 * direcaoX, 0);
