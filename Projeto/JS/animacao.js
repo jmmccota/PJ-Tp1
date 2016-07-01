@@ -236,6 +236,53 @@ function DesenhaVida(imagem, xiCanvas, yiCanvas) {
     }
 }
 
+
+function DesenhaVidaCorrendo(xiCanvas, yiCanvas) {
+    this.imagem = imgVida;
+    this.posSprites = recortes["emily"].movimento["itemDeVida"];
+    this.x = xiCanvas;
+    this.y = yiCanvas;
+
+    this.desenha = function () {
+        ctx.drawImage(this.imagem, this.posSprites.x[0], this.posSprites.y[0], this.posSprites.w[0], this.posSprites.h[0], this.x, this.y, this.posSprites.w[0], this.posSprites.h[0]);
+    };
+
+    this.atualiza = function () {
+        ctx.drawImage(this.imagem, this.posSprites.x[0], this.posSprites.y[0], this.posSprites.w[0], this.posSprites.h[0], this.x, this.y, this.posSprites.w[0], this.posSprites.h[0]);
+    };
+
+    this.limpa = function () {
+        ctx.clearRect(this.novoCentroX - (this.novoWidth / 2), this.novoCentroY - (this.novoHeight / 2), this.novoWidth, this.novoHeight);
+        this.x = xiCanvas;
+        this.y = yiCanvas;
+    };
+
+    this.posicaoAtual = function () {
+        return {
+            x: this.x,
+            y: this.y,
+            h: this.posSprites.w[0],
+            w: this.posSprites.h[0]
+        }
+    }
+}
+
+function GanhaVida(){
+	this.v = new DesenhaVidaCorrendo(400, 2800);	
+	arrayVidas.push(this.v);
+	while(this.v.x > 39 && this.v.y > 279){
+		this.v.x -= 1;
+		this.v.y -= 7;
+		//this.v.atualiza();
+		if(this.v.x <= 39 || this.v.y <= 279){
+			this.v.x = 0 + ((arrayVidas.length-1) * 30);
+			this.v.y = 30;
+		}
+	}
+	
+}
+
+
 function DesenhaEmily(imagem, xiCanvas, yiCanvas) {
     this.imagem = imagem;
     this.posSprites = recortes["emily"].movimento[acao];
@@ -543,38 +590,6 @@ function DesenhaInimigo(imagem, xiCanvas, yiCanvas) {
 
         audio.play('atira');
     }
-}
-
-function GanhaVida() {
-    //this.posSprites = recortes["inimigo"].movimento["running"];
-    this.life;
-
-
-    this.atualiza = function () {
-        this.life.desenha();
-        this.life.atualiza();
-        this.life.x = this.life.x - 1;
-        if (this.life.x == 40) {
-            arrayVidas.push(new DesenhaVida(imgVida, 0 + (arrayVidas.length * 30), 30));
-        }
-    };
-
-    this.limpa = function () {
-        this.life = new DesenhaVida(imgVida, 500, 30);
-    };
-
-    this.desenha = function () {
-        this.life.desenha();
-    };
-
-    this.posicaoAtual = function () {
-        return {
-            x: this.life.x,
-            y: this.life.y,
-        }
-    };
-
-
 }
 
 
