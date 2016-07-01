@@ -304,7 +304,7 @@ function DesenhaEmily(imagem, xiCanvas, yiCanvas) {
     };
 
     this.limpa = function () {
-        ctx.clearRect();
+        //ctx.clearRect();
         this.proximaImg = 0;
         this.movimento = acao;
         this.auxPulo = 0;
@@ -564,7 +564,7 @@ function DesenhaInimigo(imagem, xiCanvas, yiCanvas) {
             //}
 
             //if (this.movimento == "attacking" && this.proximaImg == parseInt(this.posSprites.x.length / 5)) {
-                // desenhoInimigo.atira();
+            // desenhoInimigo.atira();
             //}
 
         }
@@ -767,9 +767,9 @@ function drawBalao(width, height, ptX, ptY) {
     var y = parseInt(ptY - (alturaBase / 2));
     ctx.fillRect(x, y, larguraBase, alturaBase);
     ctx.beginPath();
-    ctx.moveTo(x,y);
-    ctx.lineTo(x-10,y+5);
-    ctx.lineTo(x, y+10);
+    ctx.moveTo(x, y);
+    ctx.lineTo(x - 10, y + 5);
+    ctx.lineTo(x, y + 10);
     ctx.fill();
 }
 
@@ -782,15 +782,15 @@ function drawBalao2(width, height, ptX, ptY) {
     var y = parseInt(ptY - (alturaBase / 2));
     ctx.fillRect(x, y, larguraBase, alturaBase);
     ctx.beginPath();
-    ctx.moveTo(x+width,y);
-    ctx.lineTo(x+width+10,y+5);
-    ctx.lineTo(x+width, y+10);
+    ctx.moveTo(x + width, y);
+    ctx.lineTo(x + width + 10, y + 5);
+    ctx.lineTo(x + width, y + 10);
     ctx.fill();
 }
 
 function drawAnimaFinal() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if(tempo < 300){
+    if (tempo < 300) {
         if (tempo < 200)
             desenhoAnimeFimJogo.proximoQuadro(150);
         desenhoBack4.desenhaEffectX();
@@ -817,7 +817,7 @@ function drawAnimaFinal() {
         drawBalao2(150, 45, 270, 300);
         escrita("Obrigado Doutor!", 215, 300, 15, "black");
     }
-    
+
     else if (tempo <= 1100) {
         desenhoEncontro.desenha();
         drawBalao2(190, 45, 140, 200);
@@ -825,13 +825,13 @@ function drawAnimaFinal() {
         drawBalao(170, 45, 610, 210);
         escrita("Sentimos sua falta!", 540, 215, 15, "black");
     }
-    else if(contCreditos < 800){
+    else if (contCreditos < 800) {
         desenhoEncontro.desenha();
-        ctx.drawImage(imgCreditos, 0, 0+contCreditos, 700, 400, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(imgCreditos, 0, 0 + contCreditos, 700, 400, 0, 0, canvas.width, canvas.height);
         contCreditos++;
     }
-    
-    else{
+
+    else {
         sairAnimaFinal = 1;
         contCreditos = 0;
         sairAnimeFase = 0;
@@ -848,8 +848,8 @@ function drawAnimaFinal() {
         if (bAudio == 1) {
             musicas.stop();
         }
-        if(arrayVidas){
-            while(arrayVidas.length > 0){
+        if (arrayVidas) {
+            while (arrayVidas.length > 0) {
                 arrayVidas.pop();
             }
         }
@@ -859,7 +859,7 @@ function drawAnimaFinal() {
             arrayVidas[i] = new DesenhaVida(imgVida, 0 + (i * 30), 30);
         }
     }
-     tempo++;
+    tempo++;
 }
 
 function drawBackFaseChefao4() {
@@ -1699,7 +1699,7 @@ function drawFase() {
         }
         drawBase(75, 20, 636, 23);
         escrita("FPS: " + fps, 600, 30, 20, "red");
-        if(sairAnimaFinal == 1){
+        if (sairAnimaFinal == 1) {
             drawBase(90, 20, 636, 45);
             escrita(pts + "pts", 600, 53, 20, "blue");
 
@@ -2092,7 +2092,7 @@ function draw() {
 
     imgNeve2 = new Image();
     imgNeve2.src = "images/neve2.png";
-    
+
     imgDoutor = new Image();
     imgDoutor.src = "images/doutor.png";
 
@@ -2160,10 +2160,10 @@ function draw() {
 
     imgFimJogo = new Image();
     imgFimJogo.src = "images/fim.png";
-    
+
     imgEncontro = new Image();
     imgEncontro.src = "images/encontro.png";
-    
+
     imgCreditos = new Image();
     imgCreditos.src = "images/creditos.png";
 
@@ -2195,9 +2195,9 @@ function draw() {
     desenhoAnimeFase2 = new Desenho(imgPersonagem, centroImgX2, centroImgY2, width2, height2, 110, 320, 120, 130);
     desenhoAnimeFimFase1 = new Desenho(imgPersonagem, centroImgX3, centroImgY3, width3, height3, 110, 320, 120, 110);
     desenhoAnimeFimJogo = new Desenho(imgPersonagem, centroImgX4, centroImgY4, width4, height4, 110, 320, 120, 110);
-    desenhoMensFimJogo = new Desenho(imgFimJogo, 960, 540, 1920, 1080,canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
-    desenhoEncontro = new Desenho(imgEncontro, 960, 540, 1920, 1080,canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
-    
+    desenhoMensFimJogo = new Desenho(imgFimJogo, 960, 540, 1920, 1080, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
+    desenhoEncontro = new Desenho(imgEncontro, 960, 540, 1920, 1080, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
+
     arrayVidas = new Array(new DesenhaVida(imgVida, 0, 30));
 
     for (var i = 1; i < 5; i++) {
@@ -2309,7 +2309,7 @@ window.onmousemove = function (event) {
                 else if (posY >= 429 && posY <= 474) {                  //quarto elemento do menu
                     indice = 3;
                     somMenu(indice, event);
-                } 
+                }
             }
         }
         selecionarItem(indice);
@@ -2337,7 +2337,7 @@ function tecla(e) {
             sairLetreiro = 1;
             ctx.globalAlpha = 1;
         }
-        else if(sairAnimaFinal == 0){
+        else if (sairAnimaFinal == 0) {
             contCreditos = 0;
             sairAnimeFase = 0;
             sairFase = 1;
@@ -2353,10 +2353,10 @@ function tecla(e) {
             if (bAudio == 1) {
                 musicas.stop();
             }
-            if(arrayVidas){
-            while(arrayVidas.length > 0){
-                arrayVidas.pop();
-            }
+            if (arrayVidas) {
+                while (arrayVidas.length > 0) {
+                    arrayVidas.pop();
+                }
             }
             arrayVidas = new Array(new DesenhaVida(imgVida, 0, 30));
 
@@ -2607,11 +2607,15 @@ function tecla(e) {
                 drawBase(140, 30, canvas.width / 2, canvas.height / 2);
                 escrita("Erro ao salvar!", canvas.width / 2 - 65, canvas.height / 2 + 8, 20, "red");
             }
-            while (arrayTiros.length > 0) {
-                arrayTiros.pop();
+            if (arrayTiros) {
+                while (arrayTiros.length > 0) {
+                    arrayTiros.pop();
+                }
             }
-            while (arrayVidas.length > 0) {
-                arrayVidas.pop();
+            if (arrayVidas) {
+                while (arrayVidas.length > 0) {
+                    arrayVidas.pop();
+                }
             }
         }
     }
