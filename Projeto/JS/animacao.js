@@ -2170,7 +2170,7 @@ function draw() {
     desenhoInimigo = new DesenhaInimigo(imgInimigo, 580, 280);
     desenhoInimigo11 = new DesenhaInimigo(imgInimigo, 480, 280);
     desenhoInimigo2 = new DesenhaInimigo2(imgInimigo2, 780, 280);
-    desenhoInimigo22 = new DesenhaInimigo2(imgInimigo2, 580, 280);
+    desenhoInimigo22 = new DesenhaInimigo2(imgInimigo2, 700, 280);
 
     imgON = new Image();
     imgON.src = "images/on.png";
