@@ -838,6 +838,14 @@ function drawBackFaseChefao4() {
         desenhoGrade2.desenhaEffectX();
         desenhoNeve.desenhaEffectY();
         desenhoNeve.atualiza(0, 2 * direcaoY);
+
+        desenhoInimigo2.desenha();
+
+        desenhoEmily.desenha();
+
+        if (acao == "jumping" || acao == "attack")
+            desenhoEmily.atualiza();
+
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
                 arrayTiros[i].desenha();
@@ -910,6 +918,17 @@ function drawBackFase4() {
         desenhoGrade2.desenhaEffectX();
         desenhoNeve.desenhaEffectY();
         desenhoNeve.atualiza(0, 2 * direcaoY);
+
+        desenhoInimigo.desenha();
+        desenhoInimigo11.desenha();
+        desenhoInimigo2.desenha();
+        desenhoInimigo22.desenha();
+
+        desenhoEmily.desenha();
+
+        if (acao == "jumping" || acao == "attack")
+            desenhoEmily.atualiza();
+
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
                 arrayTiros[i].desenha();
@@ -1015,6 +1034,15 @@ function drawBackFaseChefao3() {
         desenhoGrade2.desenhaEffectX();
         desenhoNeve.desenhaEffectY();
         desenhoNeve.atualiza(0, 2 * direcaoY);
+
+        desenhoInimigo2.desenha();
+
+        desenhoEmily.desenha();
+
+        if (acao == "jumping" || acao == "attack")
+            desenhoEmily.atualiza();
+
+
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
                 arrayTiros[i].desenha();
@@ -1087,6 +1115,17 @@ function drawBackFase3() {
         desenhoGrade2.desenhaEffectX();
         desenhoNeve.desenhaEffectY();
         desenhoNeve.atualiza(0, 2 * direcaoY);
+
+        desenhoInimigo.desenha();
+        desenhoInimigo11.desenha();
+        desenhoInimigo2.desenha();
+        desenhoInimigo22.desenha();
+
+        desenhoEmily.desenha();
+
+        if (acao == "jumping" || acao == "attack")
+            desenhoEmily.atualiza();
+
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
                 arrayTiros[i].desenha();
@@ -1193,6 +1232,14 @@ function drawBackFaseChefao2() {
         desenhoGrade2.desenhaEffectX();
         desenhoPoste2.desenha();
         desenhoNevoa.desenhaEffectX();
+
+        desenhoInimigo2.desenha();
+
+        desenhoEmily.desenha();
+
+        if (acao == "jumping" || acao == "attack")
+            desenhoEmily.atualiza();
+
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
                 arrayTiros[i].desenha();
@@ -1265,6 +1312,17 @@ function drawBackFase2() {
         desenhoChao2.desenhaEffectX();
         desenhoGrade2.desenhaEffectX();
         desenhoPoste.desenha();
+
+        desenhoInimigo.desenha();
+        desenhoInimigo11.desenha();
+        desenhoInimigo2.desenha();
+        desenhoInimigo22.desenha();
+
+        desenhoEmily.desenha();
+
+        if (acao == "jumping" || acao == "attack")
+            desenhoEmily.atualiza();
+
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
                 arrayTiros[i].desenha();
@@ -1368,6 +1426,14 @@ function drawBackFaseChefao() {
         desenhoChaoChefao.desenhaEffectX();
         desenhoTetoChefao1.desenhaEffectX();
         desenhoNevoa.desenhaEffectX();
+
+        desenhoInimigo2.desenha();
+
+        desenhoEmily.desenha();
+
+        if (acao == "jumping" || acao == "attack")
+            desenhoEmily.atualiza();
+
         if (arrayTiros) {
             for (i = 0; i < arrayTiros.length; i++) {
                 arrayTiros[i].desenha();
@@ -1439,7 +1505,9 @@ function drawBackFase() {
         desenhoChao.desenhaEffectX();
 
         desenhoInimigo.desenha();
+        desenhoInimigo11.desenha();
         desenhoInimigo2.desenha();
+        desenhoInimigo22.desenha();
 
         desenhoEmily.desenha();
 
@@ -2020,12 +2088,13 @@ function draw() {
     desenhoDoutor = new Desenho(imgDoutor, 960, 540, 1920, 1080, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height);
     desenhoEmily = new DesenhaEmily(imgEmily, 40, 280);
 
-    desenhoInimigo = new DesenhaInimigo(imgInimigo, 580, 280);
-
-    desenhoInimigo2 = new DesenhaInimigo2(imgInimigo2, 780, 280);
-
     desenhoArvore = new Desenho(imgFase, 60, 1000, 120, 500, 250, 200, 100, 400);
 
+    //Inimigos
+    desenhoInimigo = new DesenhaInimigo(imgInimigo, 580, 280);
+    desenhoInimigo11 = new DesenhaInimigo(imgInimigo, 480, 280);
+    desenhoInimigo2 = new DesenhaInimigo2(imgInimigo2, 780, 280);
+    desenhoInimigo22 = new DesenhaInimigo2(imgInimigo2, 380, 280);
 
     imgON = new Image();
     imgON.src = "images/on.png";
@@ -2395,6 +2464,13 @@ function tecla(e) {
     if (key === 55) {                              //pressionar tecla 7 (atirar)
         if (sairFase == 0) {
             desenhoInimigo.atira();
+
+            //Inimigos da fase 2
+            desenhoInimigo11.atira();
+            desenhoInimigo12.atira();
+            desenhoInimigo21.atira();
+            desenhoInimigo22.atira();
+
             //if (bAudio == 1)
             //    audio.play('atira');
         }
