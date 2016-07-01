@@ -2211,7 +2211,8 @@ function draw() {
             atira: [1100, 2200],
             pulo: [3300, 1000]
 
-        }
+        },
+		buffer : true
     });
     musicas = new Howl({//http://howlerjs.com/
         urls: ['sound/musicas.mp3', 'sound/musicas.ogg'],
@@ -2224,7 +2225,8 @@ function draw() {
             fase4: [501000, 175000],
             chefao: [667000, 21000],
             menu: [688000, 160000]
-        }
+        },
+		buffer : true
     });
     drawJogo();
 }
