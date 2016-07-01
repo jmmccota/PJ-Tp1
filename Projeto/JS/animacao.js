@@ -2208,7 +2208,7 @@ window.onmousemove = function (event) {
                 else if (posY >= 429 && posY <= 474) {                  //quarto elemento do menu
                     indice = 3;
                     somMenu(indice, event);
-                }
+                } 
             }
         }
         selecionarItem(indice);
