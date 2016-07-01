@@ -451,6 +451,10 @@ function DesenhaTiro(imagem, xiCanvas, yiCanvas) {
         this.x = xiCanvas + this.anda;
         this.y = yiCanvas;
     };
+	
+	this.apaga = function () {
+       arrayTiros.splice(arrayTiros.indexOf(this), 1);
+    };
 
     this.desenha = function () {
         ctx.drawImage(this.imagem, this.posSprites.x[this.proximaImg], this.posSprites.y[this.proximaImg], this.posSprites.w[this.proximaImg], this.posSprites.h[this.proximaImg], this.x, this.y, this.posSprites.w[this.proximaImg] - 20, this.posSprites.h[this.proximaImg] - 55);
@@ -2503,9 +2507,9 @@ function tecla(e) {
             desenhoInimigo.atira();
 
             //Inimigos da fase 2
+            desenhoInimigo.atira();
             desenhoInimigo11.atira();
-            desenhoInimigo12.atira();
-            desenhoInimigo21.atira();
+            desenhoInimigo2.atira();
             desenhoInimigo22.atira();
 
             //if (bAudio == 1)
@@ -2704,7 +2708,10 @@ function Colisao(sprite1, sprite2) {
     sprite2.colisao.d |= colisao.b.d;
     //sprite2.hp -= sprite1.dano(colisao.a);
     //sprite1.hp -= sprite2.dano(colisao.b);
-
+	if(sprite2.movimento == "attack"){
+		sprite1.limpa();
+	}
+		
     return colisao;
 }
 ;
