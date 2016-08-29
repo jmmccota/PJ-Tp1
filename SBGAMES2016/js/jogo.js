@@ -17,13 +17,15 @@ function preload() {
 
     game.load.spritesheet('emily', 'assets/emily.png', 110, 145);
     game.load.spritesheet('inimigo1', 'assets/inimigo1.png', 110, 145);
-}
+	
+}              
 
 function create() {
 
     //  A simple background for our game
-    game.add.sprite(0, 0, 'back');
-    
+    var background = game.add.sprite(0, 0, 'back');
+    background.height = game.height;
+	background.width = game.width;
     //  The platforms group contains the ground and the 2 ledges we can jump on
     plataformas = game.add.group();
     plataformas.enableBody = true;
