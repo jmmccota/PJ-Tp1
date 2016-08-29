@@ -38,6 +38,7 @@ function create() {
     game.physics.p2.gravity.y = 300;
 
     player = game.add.sprite(150, 200, 'emily');
+    player.scale.setTo(0.5, 0.5);
     player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 10, true);
     player.animations.add('turn', [4], 20, true);
     player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 10, true);
