@@ -8,7 +8,6 @@ Options.prototype = {
     startX: "center"
   },
 
-
   init: function () {
     this.titleText = game.make.text(game.world.centerX, 100, "NinjaÇo", {
       font: 'bold 60pt TheMinion',
@@ -19,6 +18,7 @@ Options.prototype = {
     this.titleText.anchor.set(0.5);
     this.optionCount = 1;
   },
+
   create: function () {
     var playSound = gameOptions.playSound,
         playMusic = gameOptions.playMusic;

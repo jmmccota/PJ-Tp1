@@ -4,9 +4,45 @@ Game.prototype = {
     preload: function () {
         game.load.tilemap('map', 'assets/mapaFase1.json', null, Phaser.Tilemap.TILED_JSON);
 
+        game.load.image('fundo', 'assets/tileFase1.png');
+        game.load.image('ground', 'assets/ground.png');
 
         game.load.spritesheet('emily', 'assets/emily.png', 110, 150, 27);
         game.load.spritesheet('inimigo1', 'assets/inimigo1.png', 110, 150, 7);
+    },
+
+    init: function () {
+        estadoJogador = {
+            parado: 1,
+            andando: 2,
+            pulando: 3,
+            pularAndando: 4,
+            atacando: 5,
+            atacarAndando: 6,
+            atacarPulando: 7
+        };
+
+        stars = null;
+        plataformas = null;
+        jogador = null;
+        inimigos = "";
+        cursors = null;
+        pontosText = "";
+        vidasText = "";
+        jumpButton = null;
+        atackButton = null;
+        qtdInicialInimigos = 2;
+        pontos = 0;
+        vidas = 10;
+        jumpTimer = 0;
+        atackTimer = 0;
+        map = null;
+        layer = null;
+
+        game.physics.startSystem(Phaser.Physics.P2JS);
+
+        jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        atackButton = game.input.keyboard.addKey(Phaser.Keyboard.C);
     },
 
     addMenuOption: function (text, callback) {
@@ -42,15 +78,14 @@ Game.prototype = {
 
         map = game.add.tilemap('map');
         map.addTilesetImage('fundo');
-
         map.setCollisionBetween(1, 12);
+
+        layer = map.createLayer('fundoFase');
+        layer.resizeWorld();
 
         game.physics.p2.convertTilemap(map, layer);
         game.physics.p2.restitution = 0.5;
         game.physics.p2.gravity.y = 300;
-
-        layer = map.createLayer('fundoFase');
-        layer.resizeWorld();
 
         //  The platforms group contains the ground and the 2 ledges we can jump on
         plataformas = game.add.group();
@@ -62,7 +97,9 @@ Game.prototype = {
         ground.body.immovable = true;
 
         this.criaInimigos();
+        //console.log("criaJogador");
         this.criaJogador();
+        //console.log("Done");
 
         game.physics.arcade.enable(jogador);
         game.physics.arcade.enable(inimigos);
@@ -78,17 +115,6 @@ Game.prototype = {
 
         pontosText = game.add.text(16, 48, 'Pontos: ' + pontos, { fontSize: '32px', fill: '#fff' });
         vidasText = game.add.text(584, 48, 'Vidas: ' + vidas, { fontSize: '32px', fill: '#fff' });
-        //jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        //atackButton = game.input.keyboard.addKey(Phaser.Keyboard.C);
-
-        //Link pra voltar no menu
-        stage.disableVisibilityChange = false;
-        game.add.sprite(0, 0, 'stars');
-        addMenuOption('Next =>', function (e) {
-            game.state.start("GameOver");
-        });
-
-        alert("acabei o create");
     },
 
     morrer: function () {
@@ -104,18 +130,12 @@ Game.prototype = {
     },
 
     update: function () {
-        //var plats = plataformas;
-        //var jogador = jogador;
-        //var ganhavida = ganhaVida;
-
         game.physics.arcade.collide(jogador, plataformas);
         game.physics.arcade.collide(stars, plataformas);
-        game.physics.arcade.overlap(jogador, stars, this.collectStar, null, this);
+        game.physics.arcade.collide(inimigos, plataformas);
 
-        for (var i = 0; i < inimigos.length; i++) {
-            game.physics.arcade.collide(inimigos.children[i], plataformas);
-            game.physics.arcade.overlap(inimigos.children[i], jogador, this.mataOuMorre(jogador, inimigos.children[i]), null, this);
-        }
+        game.physics.arcade.overlap(jogador, stars, this.collectStar, null, this);
+        game.physics.arcade.overlap(inimigos, jogador, this.colideJogadorInimigo(jogador, inimigos), null, this);
 
         cursors = game.input.keyboard.createCursorKeys();
 
@@ -233,7 +253,7 @@ Game.prototype = {
          *  Faz cada inimigo adicionado ir em direção ao jogador
          */
         for (var i = 0; i < qtdInicialInimigos; i++) {
-            var inimigo = inimigos.create(((i + 8) * Math.random() * 100) + 400, (game.world.height - 180), 'inimigo1');
+            var inimigo = inimigos.create(300, (game.world.height - 180), 'inimigo1'); //((i + 8) * Math.random() * 100) + 400, (game.world.height - 180), 'inimigo1');
 
             game.physics.enable(inimigo);
 
@@ -250,31 +270,60 @@ Game.prototype = {
      * Função que cria o jogador
      */
     criaJogador: function () {
+        //console.log("criando jogador");
         // The jogador and its settings
+        //console.log("jogador = game.add.sprite");
         jogador = game.add.sprite(32, game.world.height - 105, 'emily');
+        //console.log("Done");
+        //console.log("jogador.estadoAtual");
         jogador.estadoAtual = 1; //Inicia o jogador no estado parado
+        //console.log("Done");
+        //console.log("jogador.emAcao");
         jogador.emAcao = 0;
+        //console.log("Done");
+        //console.log("game.physics.enable");
         // É necessário adicionar a física no jogador
         game.physics.enable(jogador);
+       // console.log("Done");
 
         // Propriedades da física do jogador. Dá a ele, um salto "normal".
+
+        //console.log("jogador.body.bounce");
         jogador.body.bounce.y = 0.2;
+        //console.log("Done");
+        //console.log("jogador.body.gravity");
         jogador.body.gravity.y = 5000;
+        //console.log("Done");
+        //console.log("jogador.body.linearDamping");
         jogador.body.linearDamping = 1;
+        //console.log("Done");
 
         // Nâo deixa jogador "fugir" do mundo
+        //console.log("jogador.body.collideWorldBounds");
         jogador.body.collideWorldBounds = true;
+        //console.log("Done");
 
         // Define duas animações (esquerda e direita) para caminhar
         // 'nome', posições no quadro, quantas atualizações por segundo
+        //console.log("jogador.animations.add('andar");
         jogador.animations.add('andar', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 10, true);
+        //console.log("Done");
+        //console.log("jogador.animations.add('pulo'");
         jogador.animations.add('pulo', [13, 14, 15, 16, 17, 17, 16, 15, 14, 13], 5, false);
-        jogador.animations.add('atacar', [18, 19, 20, 21, 22, 23, 24, 25, 26, 27], 18, true);
+        //console.log("Done");
+        //console.log("jogador.animations.add('atacar");
+        jogador.animations.add('atacar', [18, 19, 20, 21, 22, 23, 24, 25, 26], 18, true);
+        //console.log("Done");
 
+        //console.log("jogador.anchor.setTo");
         jogador.anchor.setTo(.5, .5);
+        //console.log("Done");
 
+        //console.log("jogador.body.fixedRotation");
         jogador.body.fixedRotation = true;
+        //console.log("Done");
 
+        //console.log("game.camera.follow");
         game.camera.follow(jogador);
     },
 
@@ -290,11 +339,21 @@ Game.prototype = {
         }
     },
 
-    mataOuMorre: function (jog, migo) {
-        if (jog.estadoAtual == estadoJogador.atacando) {
+    mataOuMorre: function () {
+        console.log("Ou mata ou morre")
+        if (jogador.estadoAtual == estadoJogador.atacando) {
             migo.kill();
         } else {
             this.atualizaVidas(false);
+        }
+    },
+
+    colideJogadorInimigo: function (jog, migo) {
+        console.log("colige jogador inimigo");
+        if (jog.estadoAtual == estadoJogador.atacando) {
+            return true;
+        } else {
+            return false;
         }
     },
 
@@ -305,9 +364,8 @@ Game.prototype = {
         } else if (vidas > 0) {
             vidas -= 1;
         } else {
-            //CHAMAR ANIMAÇÃO DE PERDEU!!!
-            alert("Você perdeu!!");
             vidas = 0;
+            game.state.start("Credits");
         }
 
         vidasText.text = 'Vidas: ' + vidas;
