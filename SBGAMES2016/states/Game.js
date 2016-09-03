@@ -135,7 +135,7 @@ Game.prototype = {
         game.physics.arcade.collide(inimigos, plataformas);
 
         game.physics.arcade.overlap(jogador, stars, this.collectStar, null, this);
-        game.physics.arcade.overlap(inimigos, jogador, this.colideJogadorInimigo(jogador, inimigos), null, this);
+        //game.physics.arcade.overlap(inimigos, jogador, this.colideJogadorInimigo(jogador, inimigos), null, this);
 
         cursors = game.input.keyboard.createCursorKeys();
 
