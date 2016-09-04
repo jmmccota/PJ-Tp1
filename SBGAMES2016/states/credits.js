@@ -68,9 +68,10 @@ Credits.prototype = {
 		this.addCredit('Este jogo foi desenvolvido por...','Creditos...')
         this.addCredit('\n\nDaniel Gomes, Diego Haji,\nJo\u00e3o Marcos e Roberto Junior', 'Desenvolvedores');
 		this.addCredit('CEFET-MG campus Tim\u00f3teo','Em...');
+		this.addCredit("\n\nCada um escolheu seu \nlocal de trabalho", "É claro que...")
 		this.addCredit('\n\nTal trabalho \u00e9 pr\u00e9-requisito para\n aprova\u00e7\u00e3o na disciplina de\n Programa\u00e7\u00e3o com Jogos','Para...');
 		this.addCredit('Andr\u00e9 Rodrigues da Cruz','Professor...');
-		this.addCredit('\n\n\nJavaScript em conjunto com \na API Canvas do HTML5.\n Utilizou-se folha de estilo CSS \ncomo parte do layout do jogo','Tecnologias....');
+		this.addCredit('\n\n\nJavaScript em conjunto com \na API Canvas do HTML5.\n Utilizou-se folha de estilo CSS \ncomo parte do layout do jogo','Tecnologias...');
         this.addCredit('Phaser.io', 'Powered By');
         this.addCredit('for playing', 'Thank you');
 
