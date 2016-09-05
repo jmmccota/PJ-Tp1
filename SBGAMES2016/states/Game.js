@@ -35,6 +35,7 @@ Game.prototype = {
         pontos = 0;
         vidas = 10;
         jumpTimer = 0;
+        habilitaMorte = 0;
         atackTimer = 0;
         map = null;
         layer = null;
@@ -135,7 +136,7 @@ Game.prototype = {
         game.physics.arcade.collide(inimigos, plataformas);
 
         game.physics.arcade.overlap(jogador, stars, this.collectStar, null, this);
-        //game.physics.arcade.overlap(inimigos, jogador, this.colideJogadorInimigo(jogador, inimigos), null, this);
+        game.physics.arcade.overlap(jogador, inimigos, this.mataOuMorre, null, this);
 
         cursors = game.input.keyboard.createCursorKeys();
 
@@ -270,60 +271,31 @@ Game.prototype = {
      * Função que cria o jogador
      */
     criaJogador: function () {
-        //console.log("criando jogador");
-        // The jogador and its settings
-        //console.log("jogador = game.add.sprite");
+
         jogador = game.add.sprite(32, game.world.height - 105, 'emily');
-        //console.log("Done");
-        //console.log("jogador.estadoAtual");
         jogador.estadoAtual = 1; //Inicia o jogador no estado parado
-        //console.log("Done");
-        //console.log("jogador.emAcao");
         jogador.emAcao = 0;
-        //console.log("Done");
-        //console.log("game.physics.enable");
-        // É necessário adicionar a física no jogador
+
         game.physics.enable(jogador);
-       // console.log("Done");
 
         // Propriedades da física do jogador. Dá a ele, um salto "normal".
-
-        //console.log("jogador.body.bounce");
         jogador.body.bounce.y = 0.2;
-        //console.log("Done");
-        //console.log("jogador.body.gravity");
         jogador.body.gravity.y = 5000;
-        //console.log("Done");
-        //console.log("jogador.body.linearDamping");
         jogador.body.linearDamping = 1;
-        //console.log("Done");
-
-        // Nâo deixa jogador "fugir" do mundo
-        //console.log("jogador.body.collideWorldBounds");
         jogador.body.collideWorldBounds = true;
-        //console.log("Done");
 
         // Define duas animações (esquerda e direita) para caminhar
         // 'nome', posições no quadro, quantas atualizações por segundo
-        //console.log("jogador.animations.add('andar");
         jogador.animations.add('andar', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 10, true);
-        //console.log("Done");
-        //console.log("jogador.animations.add('pulo'");
         jogador.animations.add('pulo', [13, 14, 15, 16, 17, 17, 16, 15, 14, 13], 5, false);
-        //console.log("Done");
-        //console.log("jogador.animations.add('atacar");
         jogador.animations.add('atacar', [18, 19, 20, 21, 22, 23, 24, 25, 26], 18, true);
-        //console.log("Done");
+        console.log("jogador.animations.add('atacar");
+        jogador.animations.add('morte', [18, 19, 20, 21, 22, 23, 24, 25, 26], 18, true);
+        console.log("Done");
 
-        //console.log("jogador.anchor.setTo");
         jogador.anchor.setTo(.5, .5);
-        //console.log("Done");
-
-        //console.log("jogador.body.fixedRotation");
         jogador.body.fixedRotation = true;
-        //console.log("Done");
 
-        //console.log("game.camera.follow");
         game.camera.follow(jogador);
     },
 
@@ -339,36 +311,30 @@ Game.prototype = {
         }
     },
 
-    mataOuMorre: function () {
-        console.log("Ou mata ou morre")
+    mataOuMorre: function (jogador, inimigos) {
         if (jogador.estadoAtual == estadoJogador.atacando) {
-            migo.kill();
+            inimigos.kill();
         } else {
             this.atualizaVidas(false);
         }
     },
 
-    colideJogadorInimigo: function (jog, migo) {
-        console.log("colige jogador inimigo");
-        if (jog.estadoAtual == estadoJogador.atacando) {
-            return true;
-        } else {
-            return false;
-        }
-    },
-
     atualizaVidas: function (ganha) {
         //  Add and update the score
-        if (ganha) {
-            vidas += 1;
-        } else if (vidas > 0) {
-            vidas -= 1;
-        } else {
-            vidas = 0;
-            game.state.start("Credits");
-        }
+        if (habilitaMorte <= 0) {
+            if (ganha) {
+                vidas += 1;
+            } else if (vidas > 0) {
+                vidas -= 1;
+                habilitaMorte = 1000;
+            } else {
+                vidas = 0;
+                game.state.start("Credits");
+            }
 
-        vidasText.text = 'Vidas: ' + vidas;
+            vidasText.text = 'Vidas: ' + vidas;
+        }
+        habilitaMorte--;
     },
 
     perdeVida: function () {

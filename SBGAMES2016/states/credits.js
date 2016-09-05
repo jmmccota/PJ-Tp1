@@ -72,7 +72,6 @@ Credits.prototype = {
 		this.addCredit('\n\nTal trabalho \u00e9 pr\u00e9-requisito para\n aprova\u00e7\u00e3o na disciplina de\n Programa\u00e7\u00e3o com Jogos','Para...');
 		this.addCredit('Andr\u00e9 Rodrigues da Cruz','Professor...');
 		this.addCredit('\n\n\nJavaScript em conjunto com \na API Canvas do HTML5.\n Utilizou-se folha de estilo CSS \ncomo parte do layout do jogo','Tecnologias...');
-        this.addCredit('Phaser.io', 'Powered By');
         this.addCredit('for playing', 'Thank you');
 
         this.addMenuOption('<= Back', function (e) {
