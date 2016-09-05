@@ -1,5 +1,5 @@
 var Game = function (game) { };
-
+var jogador;
 Game.prototype = {
     preload: function () {
         game.load.tilemap('map', 'assets/mapaFase1.json', null, Phaser.Tilemap.TILED_JSON);
@@ -121,7 +121,7 @@ Game.prototype = {
     morrer: function () {
         // Remove jogador do jogo
         jogador.kill();
-
+		game.state.restart();
         // Mostra texto informando morte do jogador
         var textoJogo = game.add.text(game.camera.width / 2 - 150, game.camera.height / 2, "Você morreu", {
             font: "48px Arial",
@@ -326,9 +326,11 @@ Game.prototype = {
                 vidas += 1;
             } else if (vidas > 0) {
                 vidas -= 1;
+				jogador.x = 0;
                 habilitaMorte = 1000;
             } else {
                 vidas = 0;
+				
                 game.state.start("Credits");
             }
 
