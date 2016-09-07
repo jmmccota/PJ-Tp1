@@ -13,6 +13,7 @@ Splash.prototype = {
         game.load.script('options', 'states/Options.js');
         game.load.script('introFase1', 'states/introFase1.js');
         game.load.script('introFase2', 'states/introFase2.js');
+        game.load.script('final', 'states/final.js');
     },
 
     loadBgm: function () {
@@ -27,6 +28,7 @@ Splash.prototype = {
         game.load.image('gameover-bg', 'assets/images/gameover-bg.jpg');
         game.load.image('introFase1-bg', 'assets/images/introFase1-bg.jpg');
         game.load.image('introFase2-bg', 'assets/images/introFase2-bg.jpg');
+        game.load.image('final-bg', 'assets/images/final-bg.jpg');
     },
 
     loadFonts: function () {
@@ -67,6 +69,7 @@ Splash.prototype = {
         game.state.add("Options", Options);
         game.state.add("IntroFase1", IntroFase1);
         game.state.add("IntroFase2", IntroFase2);
+        game.state.add("Final", Final);
     },
 
     addGameMusic: function () {

@@ -119,12 +119,15 @@ Fase2.prototype = {
         this.cerebros = game.add.group();
         this.cerebros.enableBody = true;
 
-        var cerebro = this.cerebros.create(100 + 500, (this.game.world.height - 180), 'cerebro');
+        var cerebro = this.cerebros.create(2090, (this.game.world.height - 180), 'cerebro');
         star.body.gravity.y = 200 + Math.random() * 80;
         star.body.bounce.y = 0.1;
 
-        pontosText = game.add.text(16, 48, 'Pontos: ' + pontos, { fontSize: '32px', fill: '#fff' });
-        vidasText = game.add.text(584, 48, 'Vidas: ' + vidas, { fontSize: '32px', fill: '#fff' });
+        pontosText = game.add.text(50, 48, 'Pontos: ' + pontos, { fontSize: '32px', fill: '#fff' });
+        pontosText.fixedToCamera = true;
+        vidasText = game.add.text(700, 48, 'Vidas: ' + vidas, { fontSize: '32px', fill: '#fff' });
+        vidasText.fixedToCamera = true;
+
         console.log("Tudo certo");
     },
 
@@ -275,7 +278,10 @@ Fase2.prototype = {
                     this.emily.frame = 34;
                     //this.game.paused = true;
                     this.emily.emAcao = 0;
-                    this.game.state.start('GameOver');
+                    this.emily.animations.stop();
+                    setTimeout(function () {
+                        this.game.state.start('Final');
+                    }, 50);
                 }
 
                 this.emily.animations.play('vitoria');

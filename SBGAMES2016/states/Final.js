@@ -1,6 +1,6 @@
-var IntroFase1 = function (game) { };
+var Final = function (game) { };
 
-IntroFase1.prototype = {
+Final.prototype = {
 
     preload: function () {
         this.optionCount = 1;
@@ -56,20 +56,20 @@ IntroFase1.prototype = {
     },
 
     create: function () {
-        console.log("introfase1");
+        console.log("final");
         this.stage.disableVisibilityChange = true;
 
-        var bg = game.add.sprite(0, 0, 'introFase1-bg');
-        this.addCredit('Perdeu a sua mem\u00dbria. \n' +
-            'Siga seus instintos e ajude Emily \n' +
-            'a recuperar de sua identidade.', 'Emily');
+        var bg = game.add.sprite(0, 0, 'final-bg');
+        this.addCredit('Pronto. Meu objetivo foi alcan\u00e7ado. \n' +
+            'Este experimento foi um erro.. \n' +
+            'Reconstrua sua vida, e seja feliz!!', 'Emily');
 
         //this.addMenuOption('Pular =>', function (e) {
-        //    game.state.start("Fase1");
+        //    game.state.start("Fase2");
         //});
 
         setTimeout(function () {
-            game.state.start("Fase1");
+            game.state.start("Credits");
         }, 4500);
     }
 

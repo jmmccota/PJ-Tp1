@@ -59,28 +59,6 @@
                  "width":110,
                  "x":1980.2,
                  "y":600.409
-                }, 
-                {
-                 "gid":132,
-                 "height":150,
-                 "id":7,
-                 "name":"",
-                 "properties":
-                    {
-                     "sprite":"cerebro",
-                     "type":"objeto"
-                    },
-                 "propertytypes":
-                    {
-                     "sprite":"string",
-                     "type":"string"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":110,
-                 "x":2090.27272727273,
-                 "y":600.393939393939
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -97,7 +75,7 @@
         {
          "columns":32,
          "firstgid":1,
-         "image":"tileFase1.png",
+         "image":"C:\/Users\/rober\/Documents\/GitHub\/PJ-Tp1 (GitHub Desktop)\/PJ-Tp1\/SBGAMES2016\/assets\/tileFase1.png",
          "imageheight":600,
          "imagewidth":3520,
          "margin":0,
@@ -110,7 +88,7 @@
         {
          "columns":4,
          "firstgid":129,
-         "image":"images\/tileset.png",
+         "image":"C:\/Users\/rober\/Documents\/GitHub\/PJ-Tp1 (GitHub Desktop)\/PJ-Tp1\/SBGAMES2016\/assets\/images\/tileset.png",
          "imageheight":150,
          "imagewidth":440,
          "margin":0,

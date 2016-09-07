@@ -27,11 +27,5 @@
     <property name="type" value="objeto"/>
    </properties>
   </object>
-  <object id="7" gid="132" x="2090.27" y="600.394" width="110" height="150">
-   <properties>
-    <property name="sprite" value="cerebro"/>
-    <property name="type" value="objeto"/>
-   </properties>
-  </object>
  </objectgroup>
 </map>
