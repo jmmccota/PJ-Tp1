@@ -79,8 +79,6 @@ Credits.prototype = {
         });
 
         game.add.tween(bg).to({ alpha: 0 }, 30000, Phaser.Easing.Cubic.Out, true, 40000);
-		
-		setTimeout(function(){game.state.start("GameMenu")},50000);
     }
 
 };
