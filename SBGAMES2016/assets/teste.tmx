@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="4" tilewidth="110" tileheight="150" nextobjectid="8">
+ <tileset firstgid="1" name="tileFase1" tilewidth="110" tileheight="150" tilecount="128" columns="32">
+  <image source="tileFase1.png" width="3520" height="600"/>
+ </tileset>
+ <tileset firstgid="129" name="tileset" tilewidth="110" tileheight="150" tilecount="4" columns="4">
+  <image source="images/tileset.png" width="440" height="150"/>
+ </tileset>
+ <layer name="fundoFase" width="20" height="4">
+  <data encoding="csv">
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
+33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,
+65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,
+97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116
+</data>
+ </layer>
+ <objectgroup name="coisas">
+  <object id="1" gid="129" x="0.818182" y="600.152" width="110" height="150">
+   <properties>
+    <property name="sprite" value=""/>
+    <property name="type" value="emily"/>
+   </properties>
+  </object>
+  <object id="6" gid="131" x="1980.2" y="600.409" width="110" height="150">
+   <properties>
+    <property name="sprite" value="objeto"/>
+    <property name="type" value="objeto"/>
+   </properties>
+  </object>
+  <object id="7" gid="132" x="2090.27" y="600.394" width="110" height="150">
+   <properties>
+    <property name="sprite" value="cerebro"/>
+    <property name="type" value="objeto"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

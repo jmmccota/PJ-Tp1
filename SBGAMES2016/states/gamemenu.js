@@ -30,13 +30,13 @@ GameMenu.prototype = {
         game.add.sprite(0, 0, 'menu-bg');
         game.add.existing(this.titleText);
 
-        this.addMenuOption('Start', function () {
-            game.state.start("Game");
+        this.addMenuOption('Jogar', function () {
+            game.state.start("IntroFase1");
         });
-        this.addMenuOption('Options', function () {
+        this.addMenuOption('OpÇÕes', function () {
             game.state.start("Options");
         });
-        this.addMenuOption('Credits', function () {
+        this.addMenuOption('CrÉditos', function () {
             game.state.start("Credits");
         });
     }
